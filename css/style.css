@@ -1,0 +1,1646 @@
+/* ============================================================
+   PERSONAL WEBSITE — TUI-INSPIRED DESIGN
+   DECO1400 S1 2026 — Ben Bryant
+
+   Table of Contents:
+   1. Custom Properties (Theme)
+   2. Reset & Base Styles
+   3. Typography
+   4. Pane Component (tmux-style bordered panels)
+   5. Site Layout (CSS Grid)
+   6. Header
+   7. Sidebar File Tree
+   8. Main Content
+   9. Cards (projects, blog)
+   10. Accordion (writing page)
+   11. Timeline (resume page)
+   12. Forms
+   13. Footer
+   14. Utility Classes
+   15. Animations
+   16. Responsive Media Queries
+   ============================================================ */
+
+
+/* ============================================================
+   0. NERD FONT (Symbols only — for folder/file icons)
+   Same font used by WebTUI, loaded via CDN
+   ============================================================ */
+@font-face {
+    font-family: 'Symbols Nerd Font';
+    src:
+        local('SymbolsNerdFont-Regular'),
+        url('https://cdn.jsdelivr.net/gh/mshaugh/nerdfont-webfonts@latest/build/fonts/SymbolsNerdFont-Regular.woff2')
+            format('woff2');
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+}
+
+/* ============================================================
+   1. CUSTOM PROPERTIES (THEME)
+   Blue palette derived from tmux-tools colour scheme
+   B1=#5f87ff B2=#5fafff B3=#87afff
+   ============================================================ */
+:root {
+    /* Catppuccin Mocha backgrounds (reverted) */
+    --background0: #1e1e2e;
+    --background1: #181825;
+    --background2: #313244;
+    --background3: #45475a;
+
+    /* Foreground text (brightest to dimmest) */
+    --foreground0: #cdd6f4;
+    --foreground1: #bac2de;
+    --foreground2: #a6adc8;
+    --foreground3: #6c7086;
+
+    /* Accent palette */
+    --accent: #3da5d9;            /* fresh-sky — primary accent */
+    --accent2: #73bfb8;           /* tropical-teal — links, secondary */
+    --accent3: #2364aa;           /* ocean-deep — borders, tertiary */
+
+    /* Highlight colours */
+    --highlight-yellow: #fec601;  /* school-bus-yellow */
+    --highlight-orange: #ea7317;  /* pumpkin-spice */
+
+    /* Functional colours */
+    --error: #ea7317;
+    --success: #73bfb8;
+    --warning: #fec601;
+    --badge: #3da5d9;
+
+    /* Borders */
+    --border-color: #2364aa;
+    --border-dim: #1b4d80;
+    --border-active: #3da5d9;
+
+    /* Shadows */
+    --shadow-color: #11111b;
+
+    /* Typography — same monospace everywhere, bold for headings */
+    --font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace, 'Symbols Nerd Font';
+    --font-size: 14px;
+    --line-height: 1.6;
+
+    /* Spacing */
+    --pane-padding: 1rem;
+    --gap: 0.75rem;
+}
+
+
+/* ============================================================
+   2. RESET & BASE STYLES
+   ============================================================ */
+
+/* Border-box on everything — required by DECO1400 */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background0);
+    color: var(--foreground0);
+    line-height: var(--line-height);
+    min-height: 100vh;
+}
+
+/* Remove list styles globally — re-add where needed */
+ul, ol {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+/* ============================================================
+   3. TYPOGRAPHY
+   ============================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--foreground0);
+    font-family: var(--font-family);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.5em;
+}
+
+h1 { font-size: 2.8rem; }
+h2 { font-size: 1.8rem; color: var(--accent2); }
+h3 { font-size: 1.35rem; color: var(--highlight-orange); }
+h4 { font-size: 1.1rem; color: var(--highlight-yellow); }
+
+p {
+    margin-bottom: 1em;
+    color: var(--foreground1);
+}
+
+a {
+    color: var(--accent2);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+a:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+code, pre {
+    font-family: var(--font-family);
+    background: var(--background2);
+    padding: 0.2em 0.4em;
+    border-radius: 2px;
+}
+
+pre {
+    padding: 1em;
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1em;
+}
+
+strong {
+    color: var(--foreground0);
+    font-weight: 700;
+}
+
+em {
+    color: var(--accent3);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-active);
+    margin: 1.5em 0;
+}
+
+
+/* ============================================================
+   4. PANE COMPONENT
+   tmux-style bordered panels with label embedded in border.
+   Usage: <section class="pane" data-pane="0: Header">
+   The ::before pseudo-element renders the label text from
+   the data-pane attribute, positioned to break the top border.
+   ============================================================ */
+
+.pane {
+    border: 1px solid var(--border-color);
+    position: relative;
+    padding: var(--pane-padding);
+    padding-top: 0.5em;
+    background: var(--background1);
+}
+
+/* Pane label — hidden on sidebar/main panes, shown on header/other */
+.pane::before {
+    content: attr(data-pane);
+    display: block;
+    width: fit-content;
+    color: var(--border-color);
+    font-size: 0.85em;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    margin-bottom: 0.6em;
+}
+
+/* Sidebar & main: label positioned on the WRAPPER, not the pane */
+.site-sidebar,
+.site-main {
+    position: relative;
+}
+
+.site-sidebar > .pane::before,
+.site-main > .pane::before {
+    display: none;
+}
+
+/* Wrapper-level labels — positioned to overlap the pane's top border */
+.site-sidebar::before {
+    content: '1: Sidebar';
+    position: absolute;
+    bottom: calc(100% - 1.2em);
+    left: 1.5ch;
+    color: var(--border-color);
+    font-size: 0.85em;
+    font-weight: 700;
+    line-height: 1;
+    background: var(--background0);
+    padding: 0.1em 0.5ch;
+    z-index: 2;
+    transform: translateY(50%);
+}
+
+.site-main::before {
+    content: attr(data-label);
+    position: absolute;
+    bottom: calc(100% - 1.2em);
+    left: 1.5ch;
+    color: var(--border-active);
+    font-size: 0.85em;
+    font-weight: 700;
+    line-height: 1;
+    background: var(--background0);
+    padding: 0.1em 0.5ch;
+    z-index: 2;
+    transform: translateY(50%);
+}
+
+/* Header & sidebar panes — deep blue border (B1) */
+.site-header .pane,
+.site-sidebar .pane {
+    border-color: var(--border-color);
+}
+
+/* Content pane — lighter blue border (B2) + accent indicator */
+.site-main .pane {
+    border-color: var(--border-active);
+    background: var(--background1);
+}
+
+/* (labels handled by wrapper ::before above) */
+
+/* Active pane highlight */
+.pane--active {
+    border-color: var(--border-active);
+}
+
+/* Nested pane variant — for content cards/boxes */
+.pane--nested {
+    background: var(--background2);
+}
+
+.pane--nested::before {
+    background: var(--background1);
+}
+
+
+/* ============================================================
+   5. SITE LAYOUT (CSS GRID)
+   Desktop: 2-column grid with sidebar + main
+   Tablet: narrower sidebar
+   Mobile: single column, sidebar hidden
+   ============================================================ */
+
+.site-layout {
+    display: grid;
+    grid-template-areas:
+        "header  header"
+        "sidebar main"
+        "footer  footer";
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    gap: var(--gap);
+    padding: var(--gap);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Grid cells: flex column so pane fills, content scrolls, border stays */
+.site-main {
+    grid-area: main;
+    min-height: 0;
+}
+
+/* (old pane-label removed — using wrapper ::before) */
+
+/* Main: outer wrapper positions label, inner pane scrolls */
+.site-main > .pane {
+    max-height: calc(100% - 1.2em);
+    margin-top: 1.2em;
+    overflow-y: auto;
+}
+
+.site-sidebar {
+    grid-area: sidebar;
+    min-height: 0;
+}
+
+/* (old pane-label removed — using wrapper ::before) */
+
+/* Sidebar: outer wrapper positions label, inner pane scrolls */
+.site-sidebar > .pane {
+    max-height: calc(100% - 1.2em);
+    margin-top: 1.2em;
+    overflow-y: auto;
+}
+
+.site-header {
+    grid-area: header;
+}
+
+.site-footer {
+    grid-area: footer;
+}
+
+
+/* ============================================================
+   6. HEADER
+   Breadcrumb navigation on left, quick links on right
+   ============================================================ */
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Breadcrumb path navigation */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    font-size: 1.25em;
+    flex-wrap: wrap;
+}
+
+.breadcrumb a {
+    color: var(--foreground1);
+}
+
+.breadcrumb a:hover {
+    color: var(--accent);
+}
+
+.breadcrumb__separator {
+    color: var(--foreground3);
+    margin: 0 0.3ch;
+    user-select: none;
+}
+
+.breadcrumb__current {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* Header nav links (Contact, Help) */
+.header-nav {
+    display: flex;
+    gap: 2ch;
+    align-items: center;
+}
+
+.header-nav a {
+    color: var(--foreground1);
+    font-size: 1.15em;
+}
+
+.header-nav a:hover {
+    color: var(--accent);
+}
+
+/* Mobile menu toggle button — hidden on desktop */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--foreground0);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    padding: 0.3em 0.6em;
+    cursor: pointer;
+}
+
+.mobile-menu-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+
+/* ============================================================
+   7. SIDEBAR FILE TREE
+   WebTUI-style sidebar with <details>/<summary> folders,
+   Nerd Font icons, and Unicode tree-drawing characters.
+   ============================================================ */
+
+.file-tree {
+    overflow-y: auto;
+    padding: 0 1ch;
+}
+
+/* Root label (kept for backwards compat, now unused) */
+.file-tree__root {
+    display: none;
+}
+
+/* File tree container (holds links and details) */
+.file-tree__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Top-level links (files outside folders) */
+.file-tree__list > a {
+    display: block;
+    color: var(--foreground2);
+    text-decoration: none;
+    padding: 0.05em 0;
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-tree__list > a:hover,
+.file-tree__list > a:focus {
+    background: var(--background2);
+    color: var(--foreground0);
+}
+
+/* Active link styling */
+.file-tree__list a.file-tree__link--active,
+.file-tree__children a.file-tree__link--active {
+    color: var(--foreground0);
+    text-decoration: underline;
+    font-weight: 700;
+    background: var(--background2);
+}
+
+/* Folder: <details> element — no extra spacing */
+.file-tree__folder {
+    margin: 0;
+    padding: 0;
+}
+
+.file-tree__folder[open] {
+    margin: 0;
+    padding: 0;
+}
+
+/* Folder header: <summary> */
+.file-tree__folder > summary {
+    font-weight: 700;
+    color: var(--foreground1);
+    cursor: pointer;
+    padding: 0;
+    list-style: none;
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+}
+
+/* Remove default marker arrow */
+.file-tree__folder > summary::-webkit-details-marker {
+    display: none;
+}
+
+.file-tree__folder > summary::marker {
+    content: '';
+}
+
+/* Icons are inline text in HTML — no ::before/::after needed */
+
+.file-tree__folder > summary:hover,
+.file-tree__folder > summary:focus {
+    background: var(--background2);
+    color: var(--foreground0);
+}
+
+/* Folder children: links inside a folder */
+.file-tree__children {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1ch;
+}
+
+/* Tree-drawing characters for child links */
+.file-tree__children > a {
+    display: block;
+    color: var(--foreground2);
+    text-decoration: none;
+    padding: 0;
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+}
+
+/* Tree chars are inline in HTML — no ::before needed */
+
+.file-tree__children > a:hover,
+.file-tree__children > a:focus {
+    background: var(--background2);
+    color: var(--foreground0);
+}
+
+/* Nested folder inside a folder — NO ::before tree chars, they're inline in HTML */
+.file-tree__children > .file-tree__folder {
+    padding-left: 0;
+    margin: 0;
+}
+
+/* Nested children get deeper indent */
+.file-tree__children .file-tree__children {
+    padding-left: 2ch;
+}
+
+/* File-type icons — Nerd Font glyphs inline before filenames */
+/* Nerd Font icons are inline text — just needs the font family */
+.nf-icon {
+    font-family: 'Symbols Nerd Font', monospace;
+    margin-right: 0.4ch;
+}
+
+.nf-icon--html { color: #ea7317; }
+.nf-icon--file { color: #3da5d9; }
+.nf-icon--folder { color: #fec601; }
+
+/* Inline tree-drawing characters */
+.tree-char {
+    color: var(--foreground3);
+    font-weight: 400;
+}
+
+
+/* ============================================================
+   8. MAIN CONTENT
+   General styling for the main content area
+   ============================================================ */
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.main-content h1 {
+    margin-bottom: 0.8em;
+}
+
+/* Welcome page hero */
+.welcome-hero {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.welcome-text {
+    flex: 1;
+    min-width: 250px;
+}
+
+.welcome-photo {
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--border-active);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* Blinking cursor for terminal effect */
+.cursor {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* Section spacing within main content */
+.content-section {
+    margin-bottom: 2rem;
+}
+
+.content-section h2 {
+    border-bottom: 1px solid var(--border-active);
+    padding-bottom: 0.3em;
+    margin-bottom: 1em;
+}
+
+
+/* ============================================================
+   9. CARDS
+   Used for project listings, blog post listings.
+   Cards are pane-style boxes with image, title, description.
+   ============================================================ */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.card {
+    border: 1px solid var(--border-color);
+    background: var(--background2);
+    position: relative;
+    padding-top: calc(var(--pane-padding) + 0.5em);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card label in top border (like pane) */
+.card::before {
+    content: attr(data-label);
+    position: absolute;
+    top: 0;
+    left: 1ch;
+    transform: translateY(-50%);
+    background: var(--background2);
+    padding: 0 0.5ch;
+    color: var(--foreground3);
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.card__image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Placeholder for images — coloured block */
+.card__image-placeholder {
+    width: 100%;
+    height: 160px;
+    background: var(--background2);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--foreground3);
+    font-size: 0.85em;
+}
+
+.card__body {
+    padding: var(--pane-padding);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card__title {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--foreground0);
+    margin-bottom: 0.5em;
+}
+
+.card__title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.card__title a:hover {
+    color: var(--accent2);
+}
+
+.card__excerpt {
+    color: var(--foreground2);
+    font-size: 0.9em;
+    flex: 1;
+    margin-bottom: 0.8em;
+}
+
+.card__meta {
+    color: var(--foreground3);
+    font-size: 0.8em;
+    display: flex;
+    gap: 1ch;
+}
+
+.card__tags {
+    display: flex;
+    gap: 0.5ch;
+    flex-wrap: wrap;
+    margin-top: 0.5em;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.1em 0.6em;
+    border: 1px solid var(--border-dim);
+    color: var(--accent2);
+    font-size: 0.75em;
+    background: var(--background1);
+}
+
+
+/* ============================================================
+   10. ACCORDION
+   Used on writing.html — 2-column grid of expandable subject
+   boxes. Each box has subject name (clickable link) + chevron
+   that toggles an expanded list of essay/file links.
+   ============================================================ */
+
+.accordion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.accordion {
+    border: 1px solid var(--border-color);
+    background: var(--background2);
+    position: relative;
+    padding-top: calc(var(--pane-padding) + 0.5em);
+}
+
+/* Accordion label in border */
+.accordion::before {
+    content: attr(data-label);
+    position: absolute;
+    top: 0;
+    left: 1ch;
+    transform: translateY(-50%);
+    background: var(--background2);
+    padding: 0 0.5ch;
+    color: var(--foreground3);
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.accordion__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8em var(--pane-padding);
+    cursor: pointer;
+}
+
+.accordion__title {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--foreground0);
+}
+
+.accordion__title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.accordion__title a:hover {
+    color: var(--accent2);
+    text-decoration: underline;
+}
+
+.accordion__chevron {
+    font-size: 0.8em;
+    color: var(--foreground3);
+    transition: transform 0.25s ease;
+    user-select: none;
+    flex-shrink: 0;
+    width: 2ch;
+    text-align: center;
+}
+
+.accordion__chevron--open {
+    transform: rotate(90deg);
+}
+
+/* Expandable content area */
+.accordion__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    border-top: 1px solid var(--border-color);
+}
+
+.accordion__content--open {
+    max-height: 500px;
+}
+
+/* File-tree style essay links inside accordion */
+.accordion__links {
+    padding: 0.8em var(--pane-padding);
+    padding-left: calc(var(--pane-padding) + 1.6ch);
+    border-left: 1px solid var(--background3);
+    margin-left: var(--pane-padding);
+}
+
+.accordion__link-item {
+    padding: 0.3em 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5ch;
+}
+
+.accordion__link-item a {
+    color: var(--foreground1);
+    text-decoration: underline;
+    text-decoration-color: var(--foreground3);
+    text-underline-offset: 2px;
+}
+
+.accordion__link-item a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+}
+
+.accordion__link-icon {
+    color: var(--icon-file);
+    font-size: 0.85em;
+}
+
+
+/* ============================================================
+   11. TIMELINE
+   Vertical timeline for resume page.
+   A line runs down the center with nodes branching to cards
+   on alternating left/right sides.
+   ============================================================ */
+
+.timeline {
+    position: relative;
+    padding: 1rem 0;
+    margin: 1.5rem 0;
+}
+
+/* Vertical centre line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-color);
+    transform: translateX(-50%);
+}
+
+.timeline__section-title {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+}
+
+.timeline__section-title span {
+    background: var(--background1);
+    padding: 0.3em 1em;
+    border: 1px solid var(--border-color);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+/* Individual timeline entry */
+.timeline__item {
+    position: relative;
+    width: 50%;
+    padding: 0 2rem 2rem;
+}
+
+/* Left-aligned items */
+.timeline__item--left {
+    left: 0;
+    text-align: right;
+    padding-right: 2.5rem;
+}
+
+/* Right-aligned items */
+.timeline__item--right {
+    left: 50%;
+    padding-left: 2.5rem;
+}
+
+/* Node dot on the timeline */
+.timeline__item::before {
+    content: '';
+    position: absolute;
+    top: 0.5rem;
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border: 2px solid var(--background1);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline__item--left::before {
+    right: -6px;
+}
+
+.timeline__item--right::before {
+    left: -6px;
+}
+
+/* Timeline card */
+.timeline__card {
+    border: 1px solid var(--border-color);
+    background: var(--background2);
+    padding: 1rem;
+}
+
+.timeline__card h3 {
+    color: var(--foreground0);
+    font-size: 1em;
+    margin-bottom: 0.3em;
+}
+
+.timeline__date {
+    color: var(--accent2);
+    font-size: 0.85em;
+    margin-bottom: 0.5em;
+    display: block;
+}
+
+.timeline__card p {
+    color: var(--foreground2);
+    font-size: 0.9em;
+    margin-bottom: 0;
+}
+
+/* Promotion/achievement badge */
+.timeline__badge {
+    display: inline-block;
+    padding: 0.1em 0.5em;
+    border: 1px solid var(--badge);
+    color: var(--badge);
+    font-size: 0.75em;
+    margin-top: 0.5em;
+}
+
+
+/* ============================================================
+   11b. RESUME BLOCKS & NODE MAP
+   Left-aligned stacked education blocks and vertical node
+   map for UQLES work progression.
+   ============================================================ */
+
+.resume-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.resume-block {
+    border: 1px solid var(--border-color);
+    background: var(--background2);
+    padding: 1.2rem;
+    position: relative;
+    padding-top: calc(1.2rem + 0.5em);
+}
+
+/* Label in top border */
+.resume-block::before {
+    content: attr(data-label);
+    position: absolute;
+    top: 0;
+    left: 1ch;
+    transform: translateY(-50%);
+    background: var(--background2);
+    padding: 0 0.5ch;
+    color: var(--foreground3);
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.resume-block h3 {
+    color: var(--foreground0);
+    margin-bottom: 0.3em;
+}
+
+.resume-block__date {
+    color: var(--accent2);
+    font-size: 0.85em;
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.resume-block p {
+    color: var(--foreground2);
+    font-size: 0.9em;
+}
+
+/* Vertical node map (inside UQLES block) */
+.node-map {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-top: 1rem;
+}
+
+.node-map__item {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.node-map__item:last-child {
+    padding-bottom: 0;
+}
+
+/* Node dot */
+.node-map__dot {
+    position: absolute;
+    left: -2.5rem;
+    top: 0.3rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--background2);
+    z-index: 1;
+}
+
+/* Connecting line between nodes */
+.node-map__line {
+    position: absolute;
+    left: calc(-2.5rem + 5px);
+    top: 15px;
+    bottom: -1.5rem;
+    width: 2px;
+    background: var(--border-color);
+}
+
+/* Current/latest role */
+.node-map__item--current .node-map__dot {
+    background: var(--accent2);
+    box-shadow: 0 0 8px var(--accent2);
+}
+
+.node-map__content h4 {
+    color: var(--foreground0);
+    font-size: 1.05em;
+    margin-bottom: 0.2em;
+}
+
+.node-map__date {
+    color: var(--accent2);
+    font-size: 0.85em;
+    display: block;
+    margin-bottom: 0.3em;
+}
+
+.node-map__content p {
+    color: var(--foreground2);
+    font-size: 0.9em;
+    margin-bottom: 0;
+}
+
+
+/* ============================================================
+   11c. SUBJECT TREE (writing page)
+   File-tree style subject accordions using <details>/<summary>
+   with tree-drawing characters matching the sidebar.
+   ============================================================ */
+
+.subject-tree {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.subject-tree__folder {
+    border: 1px solid var(--border-color);
+    background: var(--background2);
+    padding: 0;
+}
+
+.subject-tree__folder > summary {
+    font-weight: 700;
+    color: var(--foreground1);
+    cursor: pointer;
+    padding: 0.8em 1em;
+    list-style: none;
+    outline: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Nerd Font folder icons */
+.subject-tree__folder > summary::before {
+    font-family: 'Symbols Nerd Font', monospace;
+    content: '\eab6  ';
+    color: var(--foreground2);
+}
+
+.subject-tree__folder[open] > summary::before {
+    font-family: 'Symbols Nerd Font', monospace;
+    content: '\eab4  ';
+    color: var(--foreground2);
+}
+
+/* Remove default marker */
+.subject-tree__folder > summary::-webkit-details-marker {
+    display: none;
+}
+
+.subject-tree__folder > summary::marker {
+    content: '';
+}
+
+.subject-tree__folder > summary:hover {
+    background: var(--background2);
+    color: var(--foreground0);
+}
+
+/* Subject name link inside summary */
+.subject-tree__folder > summary a {
+    color: inherit;
+    text-decoration: none;
+    flex: 1;
+}
+
+.subject-tree__folder > summary a:hover {
+    color: var(--accent2);
+    text-decoration: underline;
+}
+
+/* Expanded content: file-tree style links */
+.subject-tree__links {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 1em 0.8em 2ch;
+    border-top: 1px solid var(--border-color);
+}
+
+.subject-tree__links > a {
+    display: block;
+    color: var(--foreground2);
+    text-decoration: underline;
+    text-decoration-color: var(--foreground3);
+    text-underline-offset: 2px;
+    padding: 0.2em 0;
+}
+
+/* Tree-drawing characters for essay links */
+.subject-tree__links > a::before {
+    content: '\251C\00A0';
+    color: var(--foreground3);
+    text-decoration: none;
+}
+
+.subject-tree__links > a:last-child::before {
+    content: '\2514\00A0';
+}
+
+.subject-tree__links > a:hover {
+    color: var(--accent2);
+    text-decoration-color: var(--accent2);
+}
+
+
+/* ============================================================
+   11d. SIGNUP FORM (blog page)
+   Email signup bar replacing search
+   ============================================================ */
+
+.signup-bar {
+    margin-bottom: 1.5rem;
+}
+
+.signup-form label {
+    display: block;
+    color: var(--foreground2);
+    font-size: 0.9em;
+    margin-bottom: 0.4em;
+}
+
+.signup-form label::before {
+    content: '> ';
+    color: var(--accent);
+}
+
+.signup-form__row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.signup-form__row .form-input {
+    flex: 1;
+}
+
+.signup-form .form-success {
+    margin-top: 0.5rem;
+}
+
+
+/* ============================================================
+   12. FORMS
+   Terminal-styled form inputs for contact page
+   ============================================================ */
+
+.form-group {
+    margin-bottom: 1.2em;
+}
+
+.form-group label {
+    display: block;
+    color: var(--foreground2);
+    font-size: 0.9em;
+    margin-bottom: 0.3em;
+}
+
+/* Prompt prefix for labels */
+.form-group label::before {
+    content: '> ';
+    color: var(--accent);
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 0.6em 0.8em;
+    background: var(--background0);
+    border: 1px solid var(--border-color);
+    color: var(--foreground0);
+    font-family: var(--font-family);
+    font-size: 0.95em;
+    transition: border-color 0.2s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-submit {
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-family);
+    font-size: 0.95em;
+    padding: 0.6em 1.5em;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.form-submit:hover {
+    background: var(--accent);
+    color: var(--background0);
+}
+
+.form-submit:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Error state */
+.form-error {
+    color: var(--error);
+    font-size: 0.85em;
+    margin-top: 0.3em;
+    display: none;
+}
+
+.form-error--visible {
+    display: block;
+}
+
+.form-input--error,
+.form-textarea--error {
+    border-color: var(--error);
+}
+
+/* Success message */
+.form-success {
+    color: var(--accent);
+    font-size: 0.95em;
+    padding: 0.8em;
+    border: 1px solid var(--accent);
+    background: var(--background2);
+    display: none;
+}
+
+.form-success--visible {
+    display: block;
+}
+
+
+/* ============================================================
+   13. FOOTER
+   Simple copyright line below border
+   ============================================================ */
+
+.site-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 0.8em 0;
+    color: var(--foreground3);
+    font-size: 0.85em;
+    text-align: left;
+}
+
+
+/* ============================================================
+   14. UTILITY CLASSES
+   ============================================================ */
+
+/* Screen reader only — hidden visually but accessible */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Text colour utilities */
+.text-accent { color: var(--accent); }
+.text-muted { color: var(--foreground3); }
+.text-error { color: var(--accent3); }
+
+/* Flex utilities */
+.flex { display: flex; }
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Search input for blog */
+.search-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.search-bar .form-input {
+    flex: 1;
+}
+
+/* Back link */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5ch;
+    color: var(--foreground2);
+    font-size: 0.9em;
+    margin-bottom: 1.5em;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
+/* Article content styling */
+.article-header {
+    margin-bottom: 1.5em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.article-meta {
+    color: var(--foreground3);
+    font-size: 0.85em;
+    display: flex;
+    gap: 2ch;
+    margin-top: 0.5em;
+}
+
+.article-content p {
+    margin-bottom: 1.2em;
+}
+
+.article-content img {
+    margin: 1.5em 0;
+    border: 1px solid var(--border-color);
+}
+
+/* Mobile overlay backdrop */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 17, 27, 0.7);
+    z-index: 99;
+}
+
+.sidebar-overlay--visible {
+    display: block;
+}
+
+
+/* ============================================================
+   15. ANIMATIONS
+   ============================================================ */
+
+/* Cursor blink for terminal effect */
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.cursor {
+    animation: blink 1s step-end infinite;
+}
+
+/* Subtle fade-in for page content */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+
+/* ============================================================
+   16. RESPONSIVE MEDIA QUERIES
+   Mobile: < 768px
+   Tablet: 768px – 1203px
+   Desktop: > 1203px
+   ============================================================ */
+
+/* --- Tablet --- */
+@media only screen and (max-width: 1203px) {
+    .site-layout {
+        grid-template-columns: 220px 1fr;
+    }
+
+    .welcome-hero {
+        flex-direction: column;
+    }
+
+    .welcome-photo {
+        width: 150px;
+        height: 150px;
+    }
+
+    /* Timeline shifts to single column on tablet */
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline__item {
+        width: 100%;
+        padding-left: 3rem;
+        padding-right: 0;
+        text-align: left;
+    }
+
+    .timeline__item--left {
+        left: 0;
+        text-align: left;
+        padding-right: 0;
+        padding-left: 3rem;
+    }
+
+    .timeline__item--right {
+        left: 0;
+    }
+
+    .timeline__item::before {
+        left: 14px;
+        right: auto;
+    }
+
+    .timeline__item--left::before {
+        right: auto;
+        left: 14px;
+    }
+}
+
+/* --- Mobile --- */
+@media only screen and (max-width: 767px) {
+    :root {
+        --font-size: 13px;
+        --pane-padding: 0.75rem;
+    }
+
+    .site-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "main"
+            "footer";
+    }
+
+    /* Sidebar: hidden by default, slides in as overlay */
+    .site-sidebar {
+        display: none;
+    }
+
+    .site-sidebar--open {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        height: 100vh;
+        z-index: 100;
+        background: var(--background1);
+        border-right: 1px solid var(--border-color);
+        overflow-y: auto;
+        padding: var(--pane-padding);
+        animation: slideIn 0.2s ease-out;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(0); }
+    }
+
+    /* Show hamburger button on mobile */
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    /* Cards: single column */
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Accordion & subject tree: single column */
+    .accordion-grid,
+    .subject-tree {
+        grid-template-columns: 1fr;
+    }
+
+    /* Signup form stacks on mobile */
+    .signup-form__row {
+        flex-direction: column;
+    }
+
+    /* Timeline: left-aligned single column */
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline__item {
+        width: 100%;
+        padding-left: 3rem;
+        padding-right: 0;
+        text-align: left;
+    }
+
+    .timeline__item--left {
+        left: 0;
+        text-align: left;
+        padding-right: 0;
+        padding-left: 3rem;
+    }
+
+    .timeline__item--right {
+        left: 0;
+    }
+
+    .timeline__item::before {
+        left: 14px;
+        right: auto;
+    }
+
+    .timeline__item--left::before {
+        right: auto;
+        left: 14px;
+    }
+
+    /* Header wraps on mobile */
+    .header-content {
+        gap: 0.3rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.85em;
+    }
+}

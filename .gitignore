@@ -1,0 +1,7 @@
+.DS_Store
+*.swp
+*.swo
+*~
+.claude/plans/
+Screenshot*.png
+DECO1400_Coding_Standards_Guide.md
