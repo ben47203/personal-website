@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gena - Ben Bryant</title>
     <!-- External stylesheet — single CSS file for entire site -->
-    <link rel="stylesheet" href="../css/style.css?v=4">
+    <link rel="stylesheet" href="../css/style.css?v=9">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
     <!-- Mobile overlay backdrop for sidebar -->
@@ -38,8 +39,8 @@
 
                     <!-- Quick links -->
                     <nav class="header-nav" aria-label="Quick links">
-                        <a href="../contact.html">Contact</a>
-                        <a href="../help.html">? Help</a>
+                        <a href="../contact.html" class="tui-btn tui-btn--t3">Contact</a>
+                        <a href="../help.html" class="tui-btn tui-btn--t4">? Help</a>
                     </nav>
                 </div>
             </section>
@@ -56,7 +57,7 @@
                         <details class="file-tree__folder" open>
                             <summary><span class="nf-icon nf-icon--folder">󰉋</span> ~/Ben_Bryant</summary>
                             <div class="file-tree__children">
-                                <a href="../index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html</a>
+                                <a href="../index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html (home)</a>
                                 <details class="file-tree__folder" open>
                                     <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Projects</summary>
                                     <div class="file-tree__children">
@@ -71,10 +72,10 @@
                                     <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Personal Blog</summary>
                                     <div class="file-tree__children">
                                         <a href="../blog.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> blog.html</a>
-                                        <a href="../blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 Arriving in Europe</a>
-                                        <a href="../blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 Alps &amp; Beyond</a>
-                                        <a href="../blog/europe-3.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Mediterranean Coast</a>
-                                        <a href="../blog/europe-4.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Coming Home</a>
+                                        <a href="../blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 My Travels Through Europe So Far</a>
+                                        <a href="../blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 From Greece to Oxford</a>
+                                        <a href="../blog/europe-3.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Lady Margaret Hall, Oxford</a>
+                                        <a href="../blog/europe-4.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Last Two Weeks of Europe</a>
                                     </div>
                                 </details>
                                 <details class="file-tree__folder" open>
@@ -117,7 +118,9 @@
                                         </details>
                                     </div>
                                 </details>
-                                <a href="../resume.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
+                                <a href="../resume.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
+                                <a href="../contact.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> contact.html</a>
+                                <a href="../help.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> help.html</a>
                             </div>
                         </details>
                     </div>
@@ -133,15 +136,14 @@
             <section class="pane pane--active" data-pane="2: Gena">
                 <div class="main-content">
 
-                    <p><a href="../projects.html">&lt; back to projects</a></p>
 
                     <h1>GENA<span class="cursor">&#9608;</span></h1>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Gena is a generative AI platform designed to streamline creative content workflows.</p>
+                    <p>Gena is an AI-powered automated collections system built for Australian businesses. It uses natural-sounding voice calls and personalised emails to contact customers with overdue invoices, integrating directly with accounting platforms like Xero and MYOB. The system ensures full compliance with Australian regulations including the ACCC, ASIC, Privacy Act, and ACMA guidelines.</p>
 
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. The platform leverages modern AI APIs to provide an intuitive interface for content generation and iteration.</p>
+                    <p>The voice engine uses Pipecat for real-time AI conversations, with a cross-regional architecture that processes voice in the US for low latency while keeping all customer data and call recordings in Australia for data sovereignty. Calls are recorded in stereo WAV format and archived to S3, with full metadata extraction for audit trails.</p>
 
-                    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Nulla facilisi. Cras accumsan elit vel eros vehicula, ac fermentum arcu dapibus. Integer sed nisi vel libero commodo tempor at sit amet nulla.</p>
+                    <p>The platform features a React dashboard for managing campaigns, reviewing call transcripts, and monitoring collection performance. Multiple AI providers can be swapped via environment variables, supporting Deepgram, Groq, Cartesia, and AWS alternatives for speech-to-text, language models, and text-to-speech.</p>
 
                     <div class="content-section">
                         <h2>~/tech-stack</h2>
@@ -149,16 +151,16 @@
                             <span class="tag">Python</span>
                             <span class="tag">FastAPI</span>
                             <span class="tag">React</span>
-                            <span class="tag">OpenAI</span>
-                            <span class="tag">Docker</span>
-                            <span class="tag">Redis</span>
+                            <span class="tag">Pipecat</span>
+                            <span class="tag">AWS</span>
+                            <span class="tag">Jambonz</span>
                         </div>
                     </div>
 
                     <!-- Placeholder screenshot -->
                     <div class="content-section">
                         <h2>~/screenshot</h2>
-                        <img src="../images/project-gena.png" alt="Screenshot of the Gena project"
+                        <img src="../images/gena.png" alt="Screenshot of the Gena collections dashboard"
                              onerror="this.style.background='var(--background3)';this.style.height='300px';this.style.display='block';this.alt='[Screenshot placeholder]';">
                     </div>
 
@@ -176,6 +178,6 @@
     </div>
 
     <!-- External JavaScript -->
-    <script src="../js/script.js?v=3"></script>
+    <script src="../js/script.js?v=4"></script>
 </body>
 </html>

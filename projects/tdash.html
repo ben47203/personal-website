@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tdash - Ben Bryant</title>
     <!-- External stylesheet — single CSS file for entire site -->
-    <link rel="stylesheet" href="../css/style.css?v=4">
+    <link rel="stylesheet" href="../css/style.css?v=9">
 </head>
 <body>
     <!-- Mobile overlay backdrop for sidebar -->
@@ -38,8 +38,8 @@
 
                     <!-- Quick links -->
                     <nav class="header-nav" aria-label="Quick links">
-                        <a href="../contact.html">Contact</a>
-                        <a href="../help.html">? Help</a>
+                        <a href="../contact.html" class="tui-btn tui-btn--t3">Contact</a>
+                        <a href="../help.html" class="tui-btn tui-btn--t4">? Help</a>
                     </nav>
                 </div>
             </section>
@@ -56,7 +56,7 @@
                         <details class="file-tree__folder" open>
                             <summary><span class="nf-icon nf-icon--folder">󰉋</span> ~/Ben_Bryant</summary>
                             <div class="file-tree__children">
-                                <a href="../index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html</a>
+                                <a href="../index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html (home)</a>
                                 <details class="file-tree__folder" open>
                                     <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Projects</summary>
                                     <div class="file-tree__children">
@@ -71,10 +71,10 @@
                                     <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Personal Blog</summary>
                                     <div class="file-tree__children">
                                         <a href="../blog.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> blog.html</a>
-                                        <a href="../blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 Arriving in Europe</a>
-                                        <a href="../blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 Alps &amp; Beyond</a>
-                                        <a href="../blog/europe-3.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Mediterranean Coast</a>
-                                        <a href="../blog/europe-4.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Coming Home</a>
+                                        <a href="../blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 My Travels Through Europe So Far</a>
+                                        <a href="../blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 From Greece to Oxford</a>
+                                        <a href="../blog/europe-3.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Lady Margaret Hall, Oxford</a>
+                                        <a href="../blog/europe-4.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Last Two Weeks of Europe</a>
                                     </div>
                                 </details>
                                 <details class="file-tree__folder" open>
@@ -117,7 +117,9 @@
                                         </details>
                                     </div>
                                 </details>
-                                <a href="../resume.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
+                                <a href="../resume.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
+                                <a href="../contact.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> contact.html</a>
+                                <a href="../help.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> help.html</a>
                             </div>
                         </details>
                     </div>
@@ -133,32 +135,29 @@
             <section class="pane pane--active" data-pane="2: Tdash">
                 <div class="main-content">
 
-                    <p><a href="../projects.html">&lt; back to projects</a></p>
 
                     <h1>TDASH<span class="cursor">&#9608;</span></h1>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tdash is a terminal-based dashboard for real-time system monitoring, built with performance and simplicity in mind.</p>
+                    <p>Tdash is a terminal dashboard that runs inside tmux, providing live system monitoring without ever leaving the terminal. It displays real-time CPU, memory, and network utilisation using colour-coded block graphs with historical data, alongside ASCII-art visualisations of each tmux window's pane layout.</p>
 
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. It provides CPU, memory, network, and disk metrics in a clean TUI interface.</p>
+                    <p>A unique feature is Claude Code session detection — the dashboard identifies which tmux panes are running Claude Code and shows their current state (idle, working, or waiting for approval). It also tracks API token usage per session and weekly totals, parsed from Claude's JSONL log files.</p>
 
-                    <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec sed odio dui. Cras mattis consectetur purus sit amet fermentum. Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                    <p>The entire dashboard is built in Bash with no external dependencies beyond tmux, jq, and bc. It is designed for a specific screen width of roughly 167 columns — optimised for iPad Sidecar — with three monitors per row, periodic Cloudflare speed tests, and custom window naming via keybindings.</p>
 
                     <div class="content-section">
                         <h2>~/tech-stack</h2>
                         <div class="card__tags">
-                            <span class="tag">Rust</span>
-                            <span class="tag">TUI</span>
-                            <span class="tag">Linux</span>
-                            <span class="tag">WebSocket</span>
-                            <span class="tag">Crossterm</span>
-                            <span class="tag">Tokio</span>
+                            <span class="tag">Bash</span>
+                            <span class="tag">tmux</span>
+                            <span class="tag">jq</span>
+                            <span class="tag">macOS</span>
                         </div>
                     </div>
 
                     <!-- Placeholder screenshot -->
                     <div class="content-section">
                         <h2>~/screenshot</h2>
-                        <img src="../images/project-tdash.png" alt="Screenshot of the Tdash project"
+                        <img src="../images/tdash.png" alt="Screenshot of the Tdash terminal dashboard"
                              onerror="this.style.background='var(--background3)';this.style.height='300px';this.style.display='block';this.alt='[Screenshot placeholder]';">
                     </div>
 
@@ -176,6 +175,6 @@
     </div>
 
     <!-- External JavaScript -->
-    <script src="../js/script.js?v=3"></script>
+    <script src="../js/script.js?v=4"></script>
 </body>
 </html>

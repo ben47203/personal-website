@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Writing & Assignments — Ben Bryant</title>
     <!-- External stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <link rel="stylesheet" href="css/style.css?v=9">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
     <!-- Mobile overlay backdrop for sidebar -->
@@ -35,8 +36,8 @@
 
                     <!-- Quick links -->
                     <nav class="header-nav" aria-label="Quick links">
-                        <a href="contact.html">Contact</a>
-                        <a href="help.html">? Help</a>
+                        <a href="contact.html" class="tui-btn tui-btn--t3">Contact</a>
+                        <a href="help.html" class="tui-btn tui-btn--t4">? Help</a>
                     </nav>
                 </div>
             </section>
@@ -53,7 +54,7 @@
                         <details class="file-tree__folder" open>
                             <summary><span class="nf-icon nf-icon--folder">󰉋</span> ~/Ben_Bryant</summary>
                             <div class="file-tree__children">
-                                <a href="index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html</a>
+                                <a href="index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html (home)</a>
                                 <details class="file-tree__folder" open>
                                     <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Projects</summary>
                                     <div class="file-tree__children">
@@ -68,10 +69,10 @@
                                     <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Personal Blog</summary>
                                     <div class="file-tree__children">
                                         <a href="blog.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> blog.html</a>
-                                        <a href="blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 Arriving in Europe</a>
-                                        <a href="blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 Alps &amp; Beyond</a>
-                                        <a href="blog/europe-3.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Mediterranean Coast</a>
-                                        <a href="blog/europe-4.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Coming Home</a>
+                                        <a href="blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 My Travels Through Europe So Far</a>
+                                        <a href="blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 From Greece to Oxford</a>
+                                        <a href="blog/europe-3.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Lady Margaret Hall, Oxford</a>
+                                        <a href="blog/europe-4.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Last Two Weeks of Europe</a>
                                     </div>
                                 </details>
                                 <details class="file-tree__folder" open>
@@ -114,7 +115,9 @@
                                         </details>
                                     </div>
                                 </details>
-                                <a href="resume.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
+                                <a href="resume.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
+                                <a href="contact.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> contact.html</a>
+                                <a href="help.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> help.html</a>
                             </div>
                         </details>
                     </div>
@@ -135,54 +138,58 @@
 
                     <!-- Subject tree: file-tree style with details/summary -->
                     <div class="subject-tree">
+                        <!-- Left column -->
+                        <div class="subject-tree__col">
+                            <!-- Economics (pre-expanded) -->
+                            <details class="subject-tree__folder" open data-label="2.0: Economics">
+                                <summary><a href="writing/economics.html">Economics</a></summary>
+                                <div class="subject-tree__links">
+                                    <a href="writing/economics/essay-1.html">Supply and Demand in Australian Housing</a>
+                                    <a href="writing/economics/essay-2.html">Monetary Policy and Inflation Targeting</a>
+                                </div>
+                            </details>
 
-                        <!-- Economics (pre-expanded) -->
-                        <details class="subject-tree__folder" open>
-                            <summary><a href="writing/economics.html">Economics</a></summary>
-                            <div class="subject-tree__links">
-                                <a href="writing/economics/essay-1.html">Supply and Demand in Australian Housing</a>
-                                <a href="writing/economics/essay-2.html">Monetary Policy and Inflation Targeting</a>
-                            </div>
-                        </details>
+                            <!-- English -->
+                            <details class="subject-tree__folder" data-label="2.2: English">
+                                <summary><a href="writing/english.html">English</a></summary>
+                                <div class="subject-tree__links">
+                                    <a href="#">Postcolonial Narratives in Australian Literature</a>
+                                    <a href="#">Rhetoric and Persuasion in Political Speech</a>
+                                    <a href="#">Close Reading: Kazuo Ishiguro</a>
+                                </div>
+                            </details>
 
-                        <!-- Physics (pre-expanded) -->
-                        <details class="subject-tree__folder" open>
-                            <summary><a href="writing/physics.html">Physics</a></summary>
-                            <div class="subject-tree__links">
-                                <a href="writing/physics/essay-1.html">Wave-Particle Duality and Modern Optics</a>
-                                <a href="writing/physics/essay-2.html">Thermodynamics of Black Holes</a>
-                            </div>
-                        </details>
+                            <!-- Geography -->
+                            <details class="subject-tree__folder" data-label="2.4: Geography">
+                                <summary><a href="writing/geography.html">Geography</a></summary>
+                                <div class="subject-tree__links">
+                                    <a href="#">Urbanisation and Sustainability in SEQ</a>
+                                    <a href="#">Climate Change Impacts on the Great Barrier Reef</a>
+                                    <a href="#">Geopolitics of Water Scarcity</a>
+                                </div>
+                            </details>
+                        </div>
 
-                        <!-- English -->
-                        <details class="subject-tree__folder">
-                            <summary><a href="writing/english.html">English</a></summary>
-                            <div class="subject-tree__links">
-                                <a href="#">Postcolonial Narratives in Australian Literature</a>
-                                <a href="#">Rhetoric and Persuasion in Political Speech</a>
-                                <a href="#">Close Reading: Kazuo Ishiguro</a>
-                            </div>
-                        </details>
+                        <!-- Right column -->
+                        <div class="subject-tree__col">
+                            <!-- Physics (pre-expanded) -->
+                            <details class="subject-tree__folder" open data-label="2.1: Physics">
+                                <summary><a href="writing/physics.html">Physics</a></summary>
+                                <div class="subject-tree__links">
+                                    <a href="writing/physics/essay-1.html">Wave-Particle Duality and Modern Optics</a>
+                                    <a href="writing/physics/essay-2.html">Thermodynamics of Black Holes</a>
+                                </div>
+                            </details>
 
-                        <!-- Maths -->
-                        <details class="subject-tree__folder">
-                            <summary><a href="writing/maths.html">Maths</a></summary>
-                            <div class="subject-tree__links">
-                                <a href="#">Exploring Fourier Transforms</a>
-                                <a href="#">Applications of Linear Algebra</a>
-                            </div>
-                        </details>
-
-                        <!-- Geography -->
-                        <details class="subject-tree__folder">
-                            <summary><a href="writing/geography.html">Geography</a></summary>
-                            <div class="subject-tree__links">
-                                <a href="#">Urbanisation and Sustainability in SEQ</a>
-                                <a href="#">Climate Change Impacts on the Great Barrier Reef</a>
-                                <a href="#">Geopolitics of Water Scarcity</a>
-                            </div>
-                        </details>
-
+                            <!-- Maths -->
+                            <details class="subject-tree__folder" data-label="2.3: Maths">
+                                <summary><a href="writing/maths.html">Maths</a></summary>
+                                <div class="subject-tree__links">
+                                    <a href="#">Exploring Fourier Transforms</a>
+                                    <a href="#">Applications of Linear Algebra</a>
+                                </div>
+                            </details>
+                        </div>
                     </div><!-- /.subject-tree -->
 
                 </div>
@@ -199,6 +206,6 @@
     </div>
 
     <!-- External JavaScript -->
-    <script src="js/script.js?v=3"></script>
+    <script src="js/script.js?v=4"></script>
 </body>
 </html>

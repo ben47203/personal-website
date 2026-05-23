@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume — Ben Bryant</title>
     <!-- External stylesheet — single CSS file for entire site -->
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <link rel="stylesheet" href="css/style.css?v=9">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
     <!-- Mobile overlay backdrop for sidebar -->
@@ -36,8 +37,8 @@
 
                     <!-- Quick links -->
                     <nav class="header-nav" aria-label="Quick links">
-                        <a href="contact.html">Contact</a>
-                        <a href="help.html">? Help</a>
+                        <a href="contact.html" class="tui-btn tui-btn--t3">Contact</a>
+                        <a href="help.html" class="tui-btn tui-btn--t4">? Help</a>
                     </nav>
                 </div>
             </section>
@@ -54,7 +55,7 @@
                         <details class="file-tree__folder" open>
                             <summary><span class="nf-icon nf-icon--folder">󰉋</span> ~/Ben_Bryant</summary>
                             <div class="file-tree__children">
-                                <a href="index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html</a>
+                                <a href="index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html (home)</a>
                                 <details class="file-tree__folder" open>
                                     <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Projects</summary>
                                     <div class="file-tree__children">
@@ -69,10 +70,10 @@
                                     <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Personal Blog</summary>
                                     <div class="file-tree__children">
                                         <a href="blog.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> blog.html</a>
-                                        <a href="blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 Arriving in Europe</a>
-                                        <a href="blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 Alps &amp; Beyond</a>
-                                        <a href="blog/europe-3.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Mediterranean Coast</a>
-                                        <a href="blog/europe-4.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Coming Home</a>
+                                        <a href="blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 My Travels Through Europe So Far</a>
+                                        <a href="blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 From Greece to Oxford</a>
+                                        <a href="blog/europe-3.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Lady Margaret Hall, Oxford</a>
+                                        <a href="blog/europe-4.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Last Two Weeks of Europe</a>
                                     </div>
                                 </details>
                                 <details class="file-tree__folder" open>
@@ -115,7 +116,9 @@
                                         </details>
                                     </div>
                                 </details>
-                                <a href="resume.html" class="file-tree__link--active"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
+                                <a href="resume.html" class="file-tree__link--active"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
+                                <a href="contact.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> contact.html</a>
+                                <a href="help.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> help.html</a>
                             </div>
                         </details>
                     </div>
@@ -139,56 +142,146 @@
                     <div class="content-section">
                         <h2>~/education</h2>
                         <div class="resume-stack">
-                            <div class="resume-block" data-label="education">
-                                <h3>University of Queensland</h3>
-                                <span class="resume-block__date">2024 — 2027</span>
-                                <p>Bachelor of Science — Dual major in Mathematics and Computer Science. Focus on applied computing and quantitative methods.</p>
+                            <div class="resume-block" data-label="2.0: Education 1">
+                                <h3>The University of Queensland</h3>
+                                <span class="resume-block__date">Bachelor of Computer Science and Commerce | 2024 — 2027 | 6.6 Cumulative GPA</span>
+                                <div class="resume-tree">
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">├ </span>
+                                        <span class="resume-tree__content">Coursework has included object-oriented programming, embedded systems, data structures and algorithms, statistics, discrete mathematics, database design, accounting, financial modelling, and information systems.</span>
+                                    </div>
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">└ </span>
+                                        <span class="resume-tree__content">2x Dean's Commendation for Academic Excellence.</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="resume-block" data-label="education">
-                                <h3>Lady Margaret Hall, Oxford</h3>
-                                <span class="resume-block__date">2023</span>
-                                <p>Visiting student programme. Studied economics and philosophy during a semester abroad.</p>
-                            </div>
-                            <div class="resume-block" data-label="education">
-                                <h3>Brisbane Grammar School</h3>
-                                <span class="resume-block__date">2018 — 2022</span>
-                                <p>Graduated with honours. Advanced coursework in mathematics, physics, and economics. School prefect.</p>
+                            <div class="resume-block" data-label="2.1: Education 2">
+                                <h3>University of Oxford, Lady Margaret Hall College</h3>
+                                <span class="resume-block__date">AI and ML: Theory and Practice | In-Person | June — July, 2025 | 88.67% — First Class Honours</span>
+                                <p>A competitively selected summer programme. Coursework included development of multi-parameter linear regression models from a foundational perspective and development of fully connected and convolutional neural networks using PyTorch, Pandas, NumPy, and sklearn frameworks for image classification. Data representation using matplotlib.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Work Experience Section -->
                     <div class="content-section">
-                        <h2>~/work-experience</h2>
+                        <h2>~/experience</h2>
                         <div class="resume-stack">
-                            <div class="resume-block" data-label="work">
-                                <h3>UQLES</h3>
-                                <p>University of Queensland Law Economics Society — progressed through three leadership roles:</p>
-                                <div class="node-map">
-                                    <div class="node-map__item">
-                                        <div class="node-map__dot"></div>
-                                        <div class="node-map__line"></div>
-                                        <div class="node-map__content">
-                                            <h4>Operations Executive</h4>
-                                            <span class="node-map__date">2024</span>
-                                            <p>Managed logistics and operations for society events. Coordinated with vendors, venues, and committee members to ensure smooth execution of a full semester calendar.</p>
+                            <div class="resume-block" data-label="2.2: Experience 1">
+                                <h3>Ubo Pod (San Francisco based Startup)</h3>
+                                <span class="resume-block__date">Software Engineering Intern (Upcoming) | January — February, 2026</span>
+                                <p>Working closely with the founders on developing a hardware-based, open-source AI assistant that computes locally.</p>
+                            </div>
+                            <div class="resume-block" data-label="2.3: Experience 2">
+                                <h3>Edexia (Y-Combinator Startup)</h3>
+                                <span class="resume-block__date">AI Research Intern | September — October, 2025</span>
+                                <div class="resume-tree">
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">├ </span>
+                                        <span class="resume-tree__content">Engaged in extensive prompt engineering to enable the company's product to shift from providing feedback to marking student high school assignments.</span>
+                                    </div>
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">└ </span>
+                                        <span class="resume-tree__content">High accuracy instruction sets were developed for senior economics research assignment and written essay tasks.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="resume-block" data-label="2.4: Experience 3">
+                                <h3>Dualis International / The Macro Group</h3>
+                                <span class="resume-block__date">International Tax Administrator | March, 2024 — June, 2025</span>
+                                <div class="resume-tree">
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">├ </span>
+                                        <span class="resume-tree__content">Built dualistax.com using low-code tools. Created marketing material including all website content, blogs, signatures, letterheads, and document templates. Created a simple .MSG to .EML converter in Python.</span>
+                                    </div>
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">├ </span>
+                                        <span class="resume-tree__content">Facilitated implementation of IT systems during demerger and rebrand to Dualis International.</span>
+                                    </div>
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">└ </span>
+                                        <span class="resume-tree__content">Prepared US tax returns for expats, wrote letters of advocacy for the removal of tax penalties.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="resume-block" data-label="2.5: Experience 4">
+                                <h3>Private Tutoring</h3>
+                                <span class="resume-block__date">2024 — present</span>
+
+                                <div class="resume-tree">
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">├ </span>
+                                        <span class="resume-tree__content">Tutored high school students in Specialist Maths, Physics, and Economics. Employed 5 casual staff.</span>
+                                    </div>
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">└ </span>
+                                        <span class="resume-tree__content">Exhibited exceptional communication and explanation skills with students at a wide range of ability levels.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="resume-additional">Additional experience: Alderley Arms Hotel, Nike Brisbane City, Fortitude Valley McDonald's</p>
+                    </div>
+
+                    <!-- Leadership Section -->
+                    <div class="content-section">
+                        <h2>~/leadership</h2>
+                        <div class="resume-stack">
+                            <div class="resume-block" data-label="2.6: Leadership 1">
+                                <h3>UQ Innovation and Entrepreneurship Society</h3>
+                                <!-- Role progression tree with nested dot points -->
+                                <div class="role-tree">
+                                    <div class="role-tree__node">
+                                        <span class="role-tree__connector">├ </span>
+                                        <div class="role-tree__body">
+                                            <span class="role-tree__label role-tree__label--current">■ President | 2026</span>
+                                            <div class="resume-tree">
+                                                <div class="resume-tree__item">
+                                                    <span class="resume-tree__connector">├ </span>
+                                                    <span class="resume-tree__content">President of Australia's largest university entrepreneurship society with over 700 paid members, a team of approximately 20 executives, 35+ yearly events, 8k+ social media followers, and over 62 million yearly social media impressions.</span>
+                                                </div>
+                                                <div class="resume-tree__item">
+                                                    <span class="resume-tree__connector">├ </span>
+                                                    <span class="resume-tree__content">Managed a team of event volunteers and coordinated with sponsors, venues, and speakers.</span>
+                                                </div>
+                                                <div class="resume-tree__item">
+                                                    <span class="resume-tree__connector">└ </span>
+                                                    <span class="resume-tree__content">Presented speeches, presentations, and workshops with audiences of 100+ attendees.</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="node-map__item">
-                                        <div class="node-map__dot"></div>
-                                        <div class="node-map__line"></div>
-                                        <div class="node-map__content">
-                                            <h4>Event Director</h4>
-                                            <span class="node-map__date">2025</span>
-                                            <p>Led planning and delivery of all major society events including networking nights, industry panels, and the annual ball. Managed a team of event volunteers.</p>
+                                    <div class="role-tree__node">
+                                        <span class="role-tree__connector">├ </span>
+                                        <div class="role-tree__body">
+                                            <span class="role-tree__label">■ Events Director | 2025</span>
+                                            <div class="resume-tree">
+                                                <div class="resume-tree__item">
+                                                    <span class="resume-tree__connector">├ </span>
+                                                    <span class="resume-tree__content">Coordinated an app development hackathon with a 10k prize pool, 6k budget, 80+ participants, and 10+ mentors.</span>
+                                                </div>
+                                                <div class="resume-tree__item">
+                                                    <span class="resume-tree__connector">└ </span>
+                                                    <span class="resume-tree__content">Personally organised a one-week trip to Sydney with approximately 20 participants visiting 12 top startups and tech firms.</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="node-map__item node-map__item--current">
-                                        <div class="node-map__dot"></div>
-                                        <div class="node-map__content">
-                                            <h4>President</h4>
-                                            <span class="node-map__date">2026</span>
-                                            <p>Leading the society's strategic direction, managing the executive committee, and representing UQLES to the university and external partners.</p>
+                                    <div class="role-tree__node">
+                                        <span class="role-tree__connector">└ </span>
+                                        <div class="role-tree__body">
+                                            <span class="role-tree__label">■ Operations | 2024</span>
+                                            <div class="resume-tree">
+                                                <div class="resume-tree__item">
+                                                    <span class="resume-tree__connector">├ </span>
+                                                    <span class="resume-tree__content">Managed logistics and operations for society events across a full semester calendar.</span>
+                                                </div>
+                                                <div class="resume-tree__item">
+                                                    <span class="resume-tree__connector">└ </span>
+                                                    <span class="resume-tree__content">Coordinated with vendors, venues, and committee members to ensure smooth event execution.</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -196,22 +289,59 @@
                         </div>
                     </div>
 
-                    <!-- Skills Section -->
+                    <!-- Projects Section -->
                     <div class="content-section">
-                        <h2>~/skills</h2>
+                        <h2>~/projects</h2>
+                        <div class="resume-stack">
+                            <div class="resume-block" data-label="2.7: Project 1">
+                                <h3>TryGena.app</h3>
+                                <span class="resume-block__date">Weekend of Startups Hackathon — 3rd Place | $2000 prize | A tool to help businesses understand their product's AI visibility</span>
+                                <div class="resume-tree">
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">├ </span>
+                                        <span class="resume-tree__content">Developed a full stack web application in a weekend that benchmarks how businesses and their products appear in AI recommendations based on simulated queries.</span>
+                                    </div>
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">└ </span>
+                                        <span class="resume-tree__content">Custom HTML, CSS, and JavaScript frontend, FastAPI Python backend. Hosted on Render utilising CI/CD principles and suitable API key hiding.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="resume-block" data-label="2.8: Project 2">
+                                <h3>Neural Network Image Classification</h3>
+                                <span class="resume-block__date">Fashion MNIST Dataset</span>
+                                <div class="resume-tree">
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">├ </span>
+                                        <span class="resume-tree__content">Utilised object-oriented programming principles to create modular code to facilitate rudimentary architecture research on fully connected neural networks, reaching 89% image classification accuracy.</span>
+                                    </div>
+                                    <div class="resume-tree__item">
+                                        <span class="resume-tree__connector">└ </span>
+                                        <span class="resume-tree__content">Implemented existing convolutional network architectures to reach 93% accuracy.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Details Section -->
+                    <div class="content-section">
+                        <h2>~/details</h2>
                         <div class="card__tags">
                             <span class="tag">Python</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">HTML/CSS</span>
+                            <span class="tag">Java</span>
+                            <span class="tag">C</span>
                             <span class="tag">SQL</span>
-                            <span class="tag">Git</span>
-                            <span class="tag">LaTeX</span>
-                            <span class="tag">MATLAB</span>
-                            <span class="tag">Economics</span>
-                            <span class="tag">Data Analysis</span>
-                            <span class="tag">Leadership</span>
-                            <span class="tag">Event Management</span>
-                            <span class="tag">Public Speaking</span>
+                            <span class="tag">R</span>
+                            <span class="tag">Assembly</span>
+                        </div>
+                        <div class="resume-detail-row">
+                            <span class="resume-detail-row__label">Volunteering:</span>
+                            <span class="resume-detail-row__value">Red Frogs, volunteer tutoring, Youth Group Leader at NEB Church, VI fitness with Achilles International</span>
+                        </div>
+                        <div class="resume-detail-row">
+                            <span class="resume-detail-row__label">Hobbies:</span>
+                            <span class="resume-detail-row__value">piano, running, hiking, surfing, gym</span>
                         </div>
                     </div>
 
@@ -229,6 +359,6 @@
     </div>
 
     <!-- External JavaScript -->
-    <script src="js/script.js?v=3"></script>
+    <script src="js/script.js?v=4"></script>
 </body>
 </html>

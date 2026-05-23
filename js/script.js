@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initFormValidation();
     initSignupForm();
     initCursorBlink();
+    initSubjectTreeToggle();
+    initPaneGlow();
+    initResumeTree();
 });
 
 
@@ -231,6 +234,67 @@ function initSignupForm() {
 
 
 /* ============================================================
+   SUBJECT TREE TOGGLE
+   Prevents the <a> links inside subject-tree summaries from
+   toggling the <details> element — only the chevron/summary
+   area outside the link triggers expand/contract.
+   ============================================================ */
+function initSubjectTreeToggle() {
+    const links = document.querySelectorAll('.subject-tree__folder > summary a');
+    links.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            /* Stop click from bubbling to summary and toggling details */
+            event.stopPropagation();
+        });
+    });
+}
+
+
+/* ============================================================
+   PANE GLOW
+   Adds a subtle glow to the deepest container under the cursor.
+   Only one container glows at a time — nested blocks take
+   priority over their parent pane.
+   ============================================================ */
+function initPaneGlow() {
+    /* Structural panes get accent1 glow, nested blocks get softer accent2 glow */
+    const structuralSelector = '.site-header .pane, .site-sidebar .pane, .site-main .pane';
+    const nestedSelector = '.card, .resume-block, .timeline__card, .accordion, .subject-tree__folder';
+    const glowSelector = structuralSelector + ',' + nestedSelector;
+
+    let currentGlow = null;
+
+    document.addEventListener('mouseover', function(event) {
+        /* Find the deepest glowable container under the cursor */
+        const target = event.target.closest(glowSelector);
+
+        if (target === currentGlow) return;
+
+        /* Remove glow from previous element */
+        if (currentGlow) {
+            currentGlow.classList.remove('pane-glow', 'pane-glow-nested');
+        }
+
+        /* Apply appropriate glow class to new target */
+        if (target) {
+            const isStructural = target.matches(structuralSelector);
+            target.classList.add(isStructural ? 'pane-glow' : 'pane-glow-nested');
+        }
+
+        currentGlow = target;
+    });
+
+    /* Remove glow when cursor leaves the page */
+    document.addEventListener('mouseleave', function() {
+        if (currentGlow) {
+            currentGlow.classList.remove('pane-glow', 'pane-glow-nested');
+            currentGlow = null;
+        }
+    });
+}
+
+
+/* ============================================================
    CURSOR BLINK
    Adds the blinking cursor character to elements with
    the .cursor class. Pure visual enhancement.
@@ -241,5 +305,78 @@ function initCursorBlink() {
         if (!el.textContent) {
             el.textContent = '\u2588'; /* Full block character */
         }
+    });
+}
+
+
+/* ============================================================
+   RESUME TREE CONNECTORS
+   Measures each tree item's content height and builds
+   actual ├ │ └ characters for the connector column.
+   Recalculates on resize since line wrapping changes.
+   ============================================================ */
+function initResumeTree() {
+    const trees = document.querySelectorAll('.resume-tree');
+    const roleTrees = document.querySelectorAll('.role-tree');
+    if (!trees.length && !roleTrees.length) return;
+
+    /* Build connector string for a list of items within a container */
+    function buildTreeConnectors(items, connectorSel, contentSel) {
+        /* Reset all connectors to single char so they don't inflate height */
+        items.forEach(function(item) {
+            const connector = item.querySelector(connectorSel);
+            if (connector) connector.textContent = '\u251C ';
+        });
+
+        /* Now measure content heights and build connector strings */
+        items.forEach(function(item, index) {
+            const connector = item.querySelector(connectorSel);
+            const content = item.querySelector(contentSel);
+            if (!connector || !content) return;
+
+            const isLast = index === items.length - 1;
+            const lineHeight = parseFloat(getComputedStyle(connector).lineHeight);
+            const contentHeight = content.offsetHeight;
+            const lines = Math.max(1, Math.round(contentHeight / lineHeight));
+
+            /* First line: ├ or └ */
+            const branch = isLast ? '\u2514 ' : '\u251C ';
+            /* Continuation lines: │ or space */
+            const cont = isLast ? '  ' : '\u2502 ';
+
+            let text = branch;
+            for (let i = 1; i < lines; i++) {
+                text += '\n' + cont;
+            }
+            /* Extra spacer line between items (non-last only) */
+            if (!isLast) {
+                text += '\n' + cont;
+            }
+
+            connector.textContent = text;
+        });
+    }
+
+    function buildAll() {
+        /* Build inner resume-tree connectors first (dot points) */
+        trees.forEach(function(tree) {
+            const items = Array.from(tree.querySelectorAll(':scope > .resume-tree__item'));
+            buildTreeConnectors(items, '.resume-tree__connector', '.resume-tree__content');
+        });
+
+        /* Then build outer role-tree connectors (role nodes) */
+        roleTrees.forEach(function(tree) {
+            const nodes = Array.from(tree.querySelectorAll(':scope > .role-tree__node'));
+            buildTreeConnectors(nodes, '.role-tree__connector', '.role-tree__body');
+        });
+    }
+
+    buildAll();
+
+    /* Rebuild on resize — text reflow changes line counts */
+    let resizeTimer = null;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(buildAll, 150);
     });
 }

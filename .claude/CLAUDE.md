@@ -17,11 +17,39 @@
 
 ## CSS Conventions
 - `box-sizing: border-box` on all elements
-- CSS custom properties for theming (Catppuccin Mocha palette)
+- CSS custom properties for theming (Catppuccin Mocha backgrounds + 5-tier accent palette)
 - Responsive breakpoints: mobile (<768px), tablet (768–1203px), desktop (>1203px)
 - Flexbox and CSS Grid for layout
 - `@keyframes` for animations
 - No `//` comments — use `/* */` only
+
+## Colour Hierarchy (5-tier accent system)
+All accent/border colours use 5 CSS custom properties in strict priority order:
+| Tier | Variable     | Hex       | Name           |
+|------|-------------|-----------|----------------|
+| #1   | `--accent1` | `#1e6e99` | cornflower-ocean |
+| #2   | `--accent2` | `#3ebae0` | sky-surge      |
+| #3   | `--accent3` | `#87bcc0` | pearl-aqua     |
+| #4   | `--accent4` | `#c8d1c7` | ash-grey       |
+| #5   | `--accent5` | `#cdc6ae` | pale-oak       |
+
+### Assignment rules
+- **Main structural components** (header, sidebar, content pane, footer borders): `--accent1`
+- **Main titles** (h1, blinking cursor, breadcrumb current page): `--accent1`
+- **Headings** decrease by tier: h2 → `--accent2`, h3 → `--accent3`, h4 → `--accent4`
+- **Content-nested divs/borders** (cards, accordions, timeline cards, resume blocks, subject-tree folders): `--accent2`
+- **Inner borders within content-nested elements** (card image dividers, accordion expand borders, subject-tree link borders): `--accent3`
+- **General rule**: accent elements within a border use 1 tier below that border's colour
+- **Highlights within blocks** (dates, badges, accent text): always 1+ tier below the block's border colour (e.g., resume-block border is #2 → dates are #3, node-map dates are #4)
+### Hover/Glow/Focus rules
+- **Text & links**: hover escalates colour 1 tier above resting state (e.g., `--accent3` → `--accent2`)
+- **Block borders**: hover escalates border 1 tier (e.g., card border `--accent2` → `--accent1`)
+- **Glow — structural panes** (`.pane`): `--accent1`-based glow via `.pane-glow` class
+- **Glow — nested blocks** (cards, resume-blocks, timeline cards, accordions, subject-tree folders): `--accent2`-based softer glow via `.pane-glow-nested` class
+- **Focus**: always `--accent1` outline, 2px solid, offset 2px
+- **Transitions**: 0.15s–0.3s range, always `ease` timing function
+- **JS glow**: deepest hovered container wins; only one element glows at a time
+- **RGB variables**: `--accent1-rgb` and `--accent2-rgb` provide bare RGB channels for `rgba()` opacity control in glows
 
 ## JavaScript Conventions
 - `let` and `const` only — never `var`

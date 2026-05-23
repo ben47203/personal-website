@@ -39,11 +39,12 @@
 
 /* ============================================================
    1. CUSTOM PROPERTIES (THEME)
-   Blue palette derived from tmux-tools colour scheme
-   B1=#5f87ff B2=#5fafff B3=#87afff
+   5-tier accent hierarchy — see CLAUDE.md for colour rules.
+   #1 blue-bell → #2 sky-surge → #3 tropical-teal
+   → #4 muted-teal → #5 pale-oak
    ============================================================ */
 :root {
-    /* Catppuccin Mocha backgrounds (reverted) */
+    /* Catppuccin Mocha backgrounds */
     --background0: #1e1e2e;
     --background1: #181825;
     --background2: #313244;
@@ -55,25 +56,21 @@
     --foreground2: #a6adc8;
     --foreground3: #6c7086;
 
-    /* Accent palette */
-    --accent: #3da5d9;            /* fresh-sky — primary accent */
-    --accent2: #73bfb8;           /* tropical-teal — links, secondary */
-    --accent3: #2364aa;           /* ocean-deep — borders, tertiary */
+    /* 5-tier accent hierarchy (highest → lowest priority) */
+    --accent1: #1e6e99;           /* cornflower-ocean — structural borders, main titles */
+    --accent2: #3ebae0;           /* sky-surge   — content borders, h2, inner accents */
+    --accent3: #87bcc0;           /* pearl-aqua  — h3, nested accents */
+    --accent4: #c8d1c7;           /* ash-grey    — h4, deeper nested */
+    --accent5: #cdc6ae;           /* pale-oak    — lowest priority */
 
-    /* Highlight colours */
-    --highlight-yellow: #fec601;  /* school-bus-yellow */
-    --highlight-orange: #ea7317;  /* pumpkin-spice */
+    /* RGB channels for opacity-controlled glows (must match hex above) */
+    --accent1-rgb: 30, 110, 153;
+    --accent2-rgb: 62, 186, 224;
 
-    /* Functional colours */
+    /* Functional colours (mapped to hierarchy) */
     --error: #ea7317;
-    --success: #73bfb8;
-    --warning: #fec601;
-    --badge: #3da5d9;
-
-    /* Borders */
-    --border-color: #2364aa;
-    --border-dim: #1b4d80;
-    --border-active: #3da5d9;
+    --success: #5fa8ab;
+    --warning: #cdc6ae;
 
     /* Shadows */
     --shadow-color: #11111b;
@@ -137,10 +134,10 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.5em;
 }
 
-h1 { font-size: 2.8rem; }
+h1 { font-size: 2.8rem; color: #ffffff; }
 h2 { font-size: 1.8rem; color: var(--accent2); }
-h3 { font-size: 1.35rem; color: var(--highlight-orange); }
-h4 { font-size: 1.1rem; color: var(--highlight-yellow); }
+h3 { font-size: 1.35rem; color: var(--accent3); }
+h4 { font-size: 1.1rem; color: var(--accent4); }
 
 p {
     margin-bottom: 1em;
@@ -154,12 +151,12 @@ a {
 }
 
 a:hover {
-    color: var(--accent);
+    color: var(--accent1);
     text-decoration: underline;
 }
 
 a:focus {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--accent1);
     outline-offset: 2px;
 }
 
@@ -173,7 +170,7 @@ code, pre {
 pre {
     padding: 1em;
     overflow-x: auto;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--accent2);
     margin-bottom: 1em;
 }
 
@@ -188,7 +185,7 @@ em {
 
 hr {
     border: none;
-    border-top: 1px solid var(--border-active);
+    border-top: 1px solid var(--accent2);
     margin: 1.5em 0;
 }
 
@@ -202,7 +199,7 @@ hr {
    ============================================================ */
 
 .pane {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--accent1);
     position: relative;
     padding: var(--pane-padding);
     padding-top: 0.5em;
@@ -214,7 +211,7 @@ hr {
     content: attr(data-pane);
     display: block;
     width: fit-content;
-    color: var(--border-color);
+    color: var(--accent1);
     font-size: 0.85em;
     font-weight: 700;
     line-height: 1;
@@ -228,51 +225,77 @@ hr {
     position: relative;
 }
 
+.site-header > .pane::before,
 .site-sidebar > .pane::before,
 .site-main > .pane::before {
     display: none;
+}
+
+/* Header wrapper label */
+.site-header {
+    position: relative;
+}
+
+.site-header > .pane {
+    margin-top: 0.8em;
+    padding-top: 0.8em;
+}
+
+.site-header::before {
+    content: '0: Header';
+    position: absolute;
+    top: 0.95em;
+    left: 1.5ch;
+    color: var(--accent1);
+    font-size: 0.85em;
+    font-weight: 700;
+    line-height: 1;
+    background: var(--background0);
+    padding: 0 0.5ch;
+    z-index: 2;
+    transform: translateY(-50%);
 }
 
 /* Wrapper-level labels — positioned to overlap the pane's top border */
 .site-sidebar::before {
     content: '1: Sidebar';
     position: absolute;
-    bottom: calc(100% - 1.2em);
+    top: 0.95em;
     left: 1.5ch;
-    color: var(--border-color);
+    color: var(--accent1);
     font-size: 0.85em;
     font-weight: 700;
     line-height: 1;
     background: var(--background0);
-    padding: 0.1em 0.5ch;
+    padding: 0 0.5ch;
     z-index: 2;
-    transform: translateY(50%);
+    transform: translateY(-50%);
 }
 
 .site-main::before {
     content: attr(data-label);
     position: absolute;
-    bottom: calc(100% - 1.2em);
+    top: 0.95em;
     left: 1.5ch;
-    color: var(--border-active);
+    color: var(--accent1);
     font-size: 0.85em;
     font-weight: 700;
     line-height: 1;
     background: var(--background0);
-    padding: 0.1em 0.5ch;
+    padding: 0 0.5ch;
     z-index: 2;
-    transform: translateY(50%);
+    transform: translateY(-50%);
 }
 
-/* Header & sidebar panes — deep blue border (B1) */
+/* Header & sidebar panes — same #1 border */
 .site-header .pane,
 .site-sidebar .pane {
-    border-color: var(--border-color);
+    border-color: var(--accent1);
 }
 
-/* Content pane — lighter blue border (B2) + accent indicator */
+/* Content pane — same as other main components (#1) */
 .site-main .pane {
-    border-color: var(--border-active);
+    border-color: var(--accent1);
     background: var(--background1);
 }
 
@@ -280,7 +303,7 @@ hr {
 
 /* Active pane highlight */
 .pane--active {
-    border-color: var(--border-active);
+    border-color: var(--accent2);
 }
 
 /* Nested pane variant — for content cards/boxes */
@@ -325,8 +348,8 @@ hr {
 
 /* Main: outer wrapper positions label, inner pane scrolls */
 .site-main > .pane {
-    max-height: calc(100% - 1.2em);
-    margin-top: 1.2em;
+    max-height: calc(100% - 0.8em);
+    margin-top: 0.8em;
     overflow-y: auto;
 }
 
@@ -339,8 +362,8 @@ hr {
 
 /* Sidebar: outer wrapper positions label, inner pane scrolls */
 .site-sidebar > .pane {
-    max-height: calc(100% - 1.2em);
-    margin-top: 1.2em;
+    max-height: calc(100% - 0.8em);
+    margin-top: 0.8em;
     overflow-y: auto;
 }
 
@@ -380,7 +403,7 @@ hr {
 }
 
 .breadcrumb a:hover {
-    color: var(--accent);
+    color: var(--accent1);
 }
 
 .breadcrumb__separator {
@@ -390,7 +413,7 @@ hr {
 }
 
 .breadcrumb__current {
-    color: var(--accent);
+    color: var(--accent2);
     font-weight: 700;
 }
 
@@ -401,20 +424,34 @@ hr {
     align-items: center;
 }
 
-.header-nav a {
-    color: var(--foreground1);
-    font-size: 1.15em;
+/* Header nav buttons — Contact (#3) and Help (#4) */
+.header-nav .tui-btn--t3 {
+    background-color: var(--accent3);
+    border-color: var(--accent3);
+    font-size: 0.9em;
 }
 
-.header-nav a:hover {
-    color: var(--accent);
+.header-nav .tui-btn--t3:hover {
+    background-color: var(--accent2);
+    border-color: var(--accent2);
+}
+
+.header-nav .tui-btn--t4 {
+    background-color: var(--accent4);
+    border-color: var(--accent4);
+    font-size: 0.9em;
+}
+
+.header-nav .tui-btn--t4:hover {
+    background-color: var(--accent3);
+    border-color: var(--accent3);
 }
 
 /* Mobile menu toggle button — hidden on desktop */
 .mobile-menu-toggle {
     display: none;
     background: none;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--accent1);
     color: var(--foreground0);
     font-family: var(--font-family);
     font-size: 1rem;
@@ -423,8 +460,8 @@ hr {
 }
 
 .mobile-menu-toggle:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    border-color: var(--accent1);
+    color: var(--accent1);
 }
 
 
@@ -436,7 +473,7 @@ hr {
 
 .file-tree {
     overflow-y: auto;
-    padding: 0 1ch;
+    padding: 0.3em 1ch 0;
 }
 
 /* Root label (kept for backwards compat, now unused) */
@@ -567,8 +604,8 @@ hr {
 }
 
 .nf-icon--html { color: #ea7317; }
-.nf-icon--file { color: #3da5d9; }
-.nf-icon--folder { color: #fec601; }
+.nf-icon--file { color: var(--accent2); }
+.nf-icon--folder { color: var(--accent5); }
 
 /* Inline tree-drawing characters */
 .tree-char {
@@ -587,45 +624,75 @@ hr {
 }
 
 .main-content h1 {
-    margin-bottom: 0.8em;
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
 }
 
-/* Welcome page hero */
-.welcome-hero {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-    flex-wrap: wrap;
+/* Welcome intro — aside floats right with photo + github stacked */
+.welcome-intro {
+    overflow: hidden;
+    margin-bottom: 1rem;
 }
 
-.welcome-text {
-    flex: 1;
-    min-width: 250px;
+/* Floated container holding profile photo on top, github below */
+.welcome-aside {
+    float: right;
+    width: 300px;
+    margin: 0 0 1rem 1.5rem;
 }
 
 .welcome-photo {
-    width: 200px;
-    height: 200px;
-    border: 1px solid var(--border-active);
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--accent2);
     object-fit: cover;
-    flex-shrink: 0;
+    display: block;
+}
+
+/* GitHub graph — full width of the aside container */
+.welcome-github__img {
+    width: 100%;
+    height: auto;
+    margin-top: 0.5rem;
+    border: 1px solid var(--accent2);
+    display: block;
 }
 
 /* Blinking cursor for terminal effect */
 .cursor {
-    color: var(--accent);
+    color: var(--accent1);
     font-weight: 700;
 }
 
 /* Section spacing within main content */
 .content-section {
     margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.content-section--spaced {
+    margin-top: 3rem;
 }
 
 .content-section h2 {
-    border-bottom: 1px solid var(--border-active);
+    border-bottom: 1px solid var(--accent2);
     padding-bottom: 0.3em;
     margin-bottom: 1em;
+}
+
+/* Section images — float right with border, text wraps around */
+.content-section__img {
+    float: right;
+    width: 250px;
+    height: auto;
+    margin: 0 0 1rem 1rem;
+    border: 1px solid var(--accent2);
+    display: block;
+}
+
+/* Wide variant — matches welcome-aside width (300px) */
+.content-section__img--wide {
+    width: 300px;
 }
 
 
@@ -637,13 +704,13 @@ hr {
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .card {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--accent2);
     background: var(--background2);
     position: relative;
     padding-top: calc(var(--pane-padding) + 0.5em);
@@ -652,39 +719,60 @@ hr {
     flex-direction: column;
 }
 
-/* Card label in top border (like pane) */
+/* --------------------------------------------------------
+   NESTED BLOCK LABEL APPROACH (documented)
+
+   For elements that DON'T scroll (cards, resume-blocks,
+   subject-tree folders), we use the simple approach:
+   - Element has position: relative + border
+   - ::before uses content: attr(data-label)
+   - Positioned at top: 0; transform: translateY(-50%)
+   - Background matches the PARENT's background to mask the border
+   - Color matches the element's own border color
+
+   For elements that DO scroll (sidebar, main content pane),
+   we use the nested container approach:
+   - Outer wrapper (.site-sidebar/.site-main) has position: relative
+   - Inner pane has margin-top creating a gap
+   - Wrapper's ::before label sits in the gap, overlapping the
+     inner pane's top border with translateY(-50%)
+   - Inner pane has overflow-y: auto for scrolling
+   - Inner pane's own ::before is display: none
+   -------------------------------------------------------- */
+
+/* Card label — colour matches card border (accent2) */
 .card::before {
     content: attr(data-label);
     position: absolute;
     top: 0;
     left: 1ch;
     transform: translateY(-50%);
-    background: var(--background2);
+    background: var(--background1);
     padding: 0 0.5ch;
-    color: var(--foreground3);
+    color: var(--accent2);
     font-size: 0.75em;
     font-weight: 700;
     line-height: 1;
 }
 
 .card:hover {
-    border-color: var(--accent);
+    border-color: var(--accent1);
     transform: translateY(-2px);
 }
 
 .card__image {
     width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-bottom: 1px solid var(--border-color);
+    height: auto;
+    display: block;
+    border-bottom: 1px solid var(--accent3);
 }
 
 /* Placeholder for images — coloured block */
 .card__image-placeholder {
     width: 100%;
-    height: 160px;
+    height: 200px;
     background: var(--background2);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--accent3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -739,10 +827,120 @@ hr {
 .tag {
     display: inline-block;
     padding: 0.1em 0.6em;
-    border: 1px solid var(--border-dim);
-    color: var(--accent2);
+    border: 1px solid var(--accent3);
+    color: var(--accent3);
     font-size: 0.75em;
     background: var(--background1);
+}
+
+
+/* ============================================================
+   9b. TUI BUTTONS (inspired by WebTUI)
+   Solid monospace buttons for navigation links.
+   Default: filled with accent1, text in background.
+   Outline variant: transparent with accent border.
+   ============================================================ */
+
+/* Default: accent2 (inside content pane, which has accent1 border) */
+.tui-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    font-weight: 700;
+    line-height: 1;
+    padding: 0.6em 2ch;
+    color: var(--background0);
+    background-color: var(--accent2);
+    border: 1px solid var(--accent2);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.tui-btn:hover {
+    background-color: var(--accent1);
+    border-color: var(--accent1);
+    color: var(--background0);
+    text-decoration: none;
+}
+
+.tui-btn:focus {
+    outline: 2px solid var(--accent1);
+    outline-offset: 2px;
+    text-decoration: underline;
+}
+
+.tui-btn:active {
+    background-color: var(--background0);
+    color: var(--accent2);
+}
+
+/* Outline variant — transparent bg, accent2 border */
+.tui-btn--outline {
+    background-color: transparent;
+    color: var(--accent2);
+}
+
+.tui-btn--outline:hover {
+    background-color: var(--accent2);
+    color: var(--background0);
+}
+
+/* Nested: inside an accent2-bordered element → drop to accent3 */
+.card .tui-btn,
+.resume-block .tui-btn,
+.subject-tree__folder .tui-btn {
+    background-color: var(--accent3);
+    border-color: var(--accent3);
+}
+
+.card .tui-btn:hover,
+.resume-block .tui-btn:hover,
+.subject-tree__folder .tui-btn:hover {
+    background-color: var(--accent2);
+    border-color: var(--accent2);
+}
+
+.card .tui-btn--outline,
+.resume-block .tui-btn--outline,
+.subject-tree__folder .tui-btn--outline {
+    background-color: transparent;
+    color: var(--accent3);
+    border-color: var(--accent3);
+}
+
+.card .tui-btn--outline:hover,
+.resume-block .tui-btn--outline:hover,
+.subject-tree__folder .tui-btn--outline:hover {
+    background-color: var(--accent3);
+    color: var(--background0);
+}
+
+/* Tier 3 variant — accent3 background, hover escalates to accent2 */
+.tui-btn--t3 {
+    background-color: var(--accent3);
+    border-color: var(--accent3);
+}
+
+.tui-btn--t3:hover {
+    background-color: var(--accent2);
+    border-color: var(--accent2);
+}
+
+/* Small variant */
+.tui-btn--sm {
+    padding: 0.3em 1ch;
+    font-size: 0.85em;
+}
+
+/* Button grid for groups of link buttons */
+.tui-btn-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
 }
 
 
@@ -761,7 +959,7 @@ hr {
 }
 
 .accordion {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--accent2);
     background: var(--background2);
     position: relative;
     padding-top: calc(var(--pane-padding) + 0.5em);
@@ -825,7 +1023,7 @@ hr {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--accent3);
 }
 
 .accordion__content--open {
@@ -855,12 +1053,12 @@ hr {
 }
 
 .accordion__link-item a:hover {
-    color: var(--accent);
-    text-decoration-color: var(--accent);
+    color: var(--accent1);
+    text-decoration-color: var(--accent1);
 }
 
 .accordion__link-icon {
-    color: var(--icon-file);
+    color: var(--accent2);
     font-size: 0.85em;
 }
 
@@ -886,7 +1084,7 @@ hr {
     top: 0;
     bottom: 0;
     width: 2px;
-    background: var(--border-color);
+    background: var(--accent2);
     transform: translateX(-50%);
 }
 
@@ -900,8 +1098,8 @@ hr {
 .timeline__section-title span {
     background: var(--background1);
     padding: 0.3em 1em;
-    border: 1px solid var(--border-color);
-    color: var(--accent);
+    border: 1px solid var(--accent2);
+    color: var(--accent1);
     font-weight: 700;
     font-size: 1.1em;
 }
@@ -933,7 +1131,7 @@ hr {
     top: 0.5rem;
     width: 12px;
     height: 12px;
-    background: var(--accent);
+    background: var(--accent1);
     border: 2px solid var(--background1);
     border-radius: 50%;
     z-index: 1;
@@ -949,7 +1147,7 @@ hr {
 
 /* Timeline card */
 .timeline__card {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--accent2);
     background: var(--background2);
     padding: 1rem;
 }
@@ -961,7 +1159,7 @@ hr {
 }
 
 .timeline__date {
-    color: var(--accent2);
+    color: var(--accent3);
     font-size: 0.85em;
     margin-bottom: 0.5em;
     display: block;
@@ -977,8 +1175,8 @@ hr {
 .timeline__badge {
     display: inline-block;
     padding: 0.1em 0.5em;
-    border: 1px solid var(--badge);
-    color: var(--badge);
+    border: 1px solid var(--accent3);
+    color: var(--accent3);
     font-size: 0.75em;
     margin-top: 0.5em;
 }
@@ -998,23 +1196,23 @@ hr {
 }
 
 .resume-block {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--accent2);
     background: var(--background2);
     padding: 1.2rem;
     position: relative;
     padding-top: calc(1.2rem + 0.5em);
 }
 
-/* Label in top border */
+/* Label in top border — colour matches resume-block border (accent2) */
 .resume-block::before {
     content: attr(data-label);
     position: absolute;
     top: 0;
     left: 1ch;
     transform: translateY(-50%);
-    background: var(--background2);
+    background: var(--background1);
     padding: 0 0.5ch;
-    color: var(--foreground3);
+    color: var(--accent2);
     font-size: 0.75em;
     font-weight: 700;
     line-height: 1;
@@ -1026,7 +1224,7 @@ hr {
 }
 
 .resume-block__date {
-    color: var(--accent2);
+    color: var(--accent3);
     font-size: 0.85em;
     display: block;
     margin-bottom: 0.5em;
@@ -1037,68 +1235,103 @@ hr {
     font-size: 0.9em;
 }
 
-/* Vertical node map (inside UQLES block) */
-.node-map {
-    position: relative;
-    padding-left: 2.5rem;
-    margin-top: 1rem;
+/* Tree-style lists inside resume blocks */
+.resume-tree {
+    list-style: none;
+    padding: 0;
+    margin: 0.5em 0 0 0;
+    display: flex;
+    flex-direction: column;
 }
 
-.node-map__item {
-    position: relative;
-    padding-bottom: 1.5rem;
+.resume-tree__item {
+    display: flex;
+    color: var(--foreground2);
+    font-size: 0.9em;
+    line-height: 1.5;
 }
 
-.node-map__item:last-child {
-    padding-bottom: 0;
+/* Tree connector column — actual │ ├ └ characters rendered by JS */
+.resume-tree__connector {
+    color: var(--foreground3);
+    white-space: pre;
+    user-select: none;
+    flex-shrink: 0;
+    line-height: 1.5;
 }
 
-/* Node dot */
-.node-map__dot {
-    position: absolute;
-    left: -2.5rem;
-    top: 0.3rem;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: 2px solid var(--background2);
-    z-index: 1;
+.resume-tree__content {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.5;
 }
 
-/* Connecting line between nodes */
-.node-map__line {
-    position: absolute;
-    left: calc(-2.5rem + 5px);
-    top: 15px;
-    bottom: -1.5rem;
-    width: 2px;
-    background: var(--border-color);
-}
-
-/* Current/latest role */
-.node-map__item--current .node-map__dot {
-    background: var(--accent2);
-    box-shadow: 0 0 8px var(--accent2);
-}
-
-.node-map__content h4 {
-    color: var(--foreground0);
-    font-size: 1.05em;
-    margin-bottom: 0.2em;
-}
-
-.node-map__date {
-    color: var(--accent2);
+/* Additional experience note */
+.resume-additional {
+    color: var(--foreground2);
     font-size: 0.85em;
-    display: block;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+/* Details rows — inline label + value like date styling */
+.resume-detail-row {
+    display: flex;
+    gap: 1ch;
+    font-size: 0.9em;
     margin-bottom: 0.3em;
 }
 
-.node-map__content p {
+.resume-detail-row__label {
+    color: var(--accent2);
+    flex-shrink: 0;
+}
+
+.resume-detail-row__value {
     color: var(--foreground2);
-    font-size: 0.9em;
-    margin-bottom: 0;
+}
+
+/* Role progression tree (leadership section) */
+.role-tree {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.5em;
+}
+
+.role-tree__node {
+    display: flex;
+}
+
+/* Outer tree connectors — accent4 for lines between roles */
+.role-tree__connector {
+    color: var(--accent4);
+    white-space: pre;
+    user-select: none;
+    flex-shrink: 0;
+    line-height: 1.5;
+}
+
+.role-tree__body {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Role label — Position | Tenure with ■ node marker */
+.role-tree__label {
+    color: var(--accent3);
+    font-size: 0.85em;
+    display: block;
+    line-height: 1.5;
+    margin-bottom: 0.2em;
+}
+
+.role-tree__label--current {
+    color: var(--accent2);
+}
+
+/* Inner dot-point connectors inside role-tree inherit accent4 */
+.role-tree .resume-tree__connector {
+    color: var(--accent4);
 }
 
 
@@ -1112,13 +1345,36 @@ hr {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 1.8rem;
+}
+
+.subject-tree__col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .subject-tree__folder {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--accent2);
     background: var(--background2);
     padding: 0;
+    padding-top: 0.5em;
+    position: relative;
+}
+
+/* Subject folder label — colour matches border (accent2) */
+.subject-tree__folder::before {
+    content: attr(data-label);
+    position: absolute;
+    top: 0;
+    left: 1ch;
+    transform: translateY(-50%);
+    background: var(--background1);
+    padding: 0 0.5ch;
+    color: var(--accent2);
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
 }
 
 .subject-tree__folder > summary {
@@ -1133,17 +1389,17 @@ hr {
     align-items: center;
 }
 
-/* Nerd Font folder icons */
+/* Chevron toggle indicator */
 .subject-tree__folder > summary::before {
-    font-family: 'Symbols Nerd Font', monospace;
-    content: '\eab6  ';
-    color: var(--foreground2);
+    content: '\25B6';
+    color: var(--accent2);
+    font-size: 0.75em;
+    transition: transform 0.25s ease;
+    margin-right: 0.8em;
 }
 
 .subject-tree__folder[open] > summary::before {
-    font-family: 'Symbols Nerd Font', monospace;
-    content: '\eab4  ';
-    color: var(--foreground2);
+    transform: rotate(90deg);
 }
 
 /* Remove default marker */
@@ -1176,16 +1432,14 @@ hr {
 .subject-tree__links {
     display: flex;
     flex-direction: column;
-    padding: 0.5em 1em 0.8em 2ch;
-    border-top: 1px solid var(--border-color);
+    padding: 0.5em 1em 0.8em 0.8em;
+    border-top: 1px solid var(--accent3);
 }
 
 .subject-tree__links > a {
     display: block;
-    color: var(--foreground2);
-    text-decoration: underline;
-    text-decoration-color: var(--foreground3);
-    text-underline-offset: 2px;
+    color: var(--accent3);
+    text-decoration: none;
     padding: 0.2em 0;
 }
 
@@ -1202,6 +1456,7 @@ hr {
 
 .subject-tree__links > a:hover {
     color: var(--accent2);
+    text-decoration: underline;
     text-decoration-color: var(--accent2);
 }
 
@@ -1224,7 +1479,7 @@ hr {
 
 .signup-form label::before {
     content: '> ';
-    color: var(--accent);
+    color: var(--accent2);
 }
 
 .signup-form__row {
@@ -1260,7 +1515,7 @@ hr {
 /* Prompt prefix for labels */
 .form-group label::before {
     content: '> ';
-    color: var(--accent);
+    color: var(--accent2);
 }
 
 .form-input,
@@ -1268,7 +1523,7 @@ hr {
     width: 100%;
     padding: 0.6em 0.8em;
     background: var(--background0);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--accent2);
     color: var(--foreground0);
     font-family: var(--font-family);
     font-size: 0.95em;
@@ -1278,7 +1533,7 @@ hr {
 .form-input:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: var(--accent1);
 }
 
 .form-textarea {
@@ -1288,8 +1543,8 @@ hr {
 
 .form-submit {
     background: none;
-    border: 1px solid var(--accent);
-    color: var(--accent);
+    border: 1px solid var(--accent1);
+    color: var(--accent1);
     font-family: var(--font-family);
     font-size: 0.95em;
     padding: 0.6em 1.5em;
@@ -1298,12 +1553,12 @@ hr {
 }
 
 .form-submit:hover {
-    background: var(--accent);
+    background: var(--accent1);
     color: var(--background0);
 }
 
 .form-submit:focus {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--accent1);
     outline-offset: 2px;
 }
 
@@ -1326,10 +1581,10 @@ hr {
 
 /* Success message */
 .form-success {
-    color: var(--accent);
+    color: var(--accent1);
     font-size: 0.95em;
     padding: 0.8em;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--accent1);
     background: var(--background2);
     display: none;
 }
@@ -1345,7 +1600,7 @@ hr {
    ============================================================ */
 
 .site-footer {
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--accent1);
     padding: 0.8em 0;
     color: var(--foreground3);
     font-size: 0.85em;
@@ -1371,7 +1626,7 @@ hr {
 }
 
 /* Text colour utilities */
-.text-accent { color: var(--accent); }
+.text-accent { color: var(--accent1); }
 .text-muted { color: var(--foreground3); }
 .text-error { color: var(--accent3); }
 
@@ -1410,18 +1665,18 @@ hr {
 }
 
 .back-link:hover {
-    color: var(--accent);
+    color: var(--accent1);
 }
 
 /* Article content styling */
 .article-header {
     margin-bottom: 1.5em;
     padding-bottom: 1em;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--accent2);
 }
 
 .article-meta {
-    color: var(--foreground3);
+    color: var(--accent3);
     font-size: 0.85em;
     display: flex;
     gap: 2ch;
@@ -1434,7 +1689,7 @@ hr {
 
 .article-content img {
     margin: 1.5em 0;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--accent2);
 }
 
 /* Mobile overlay backdrop */
@@ -1457,6 +1712,20 @@ hr {
 /* ============================================================
    15. ANIMATIONS
    ============================================================ */
+
+/* Structural pane glow — accent1, stronger (header/sidebar/main panes) */
+.pane-glow {
+    box-shadow: 0 0 18px rgba(var(--accent1-rgb), 0.55),
+                inset 0 0 10px rgba(var(--accent1-rgb), 0.15);
+    transition: box-shadow 0.25s ease;
+}
+
+/* Nested block glow — accent2, softer (cards, resume-blocks, etc.) */
+.pane-glow-nested {
+    box-shadow: 0 0 12px rgba(var(--accent2-rgb), 0.35),
+                inset 0 0 6px rgba(var(--accent2-rgb), 0.10);
+    transition: box-shadow 0.25s ease;
+}
 
 /* Cursor blink for terminal effect */
 @keyframes blink {
@@ -1498,13 +1767,12 @@ hr {
         grid-template-columns: 220px 1fr;
     }
 
-    .welcome-hero {
-        flex-direction: column;
+    .welcome-aside {
+        width: 220px;
     }
 
-    .welcome-photo {
-        width: 150px;
-        height: 150px;
+    .content-section__img {
+        width: 180px;
     }
 
     /* Timeline shifts to single column on tablet */
@@ -1570,7 +1838,7 @@ hr {
         height: 100vh;
         z-index: 100;
         background: var(--background1);
-        border-right: 1px solid var(--border-color);
+        border-right: 1px solid var(--accent1);
         overflow-y: auto;
         padding: var(--pane-padding);
         animation: slideIn 0.2s ease-out;
@@ -1586,13 +1854,34 @@ hr {
         display: block;
     }
 
+    /* Welcome: stack vertically on mobile */
+    .welcome-aside {
+        float: none;
+        width: 100%;
+        margin: 0 0 1rem 0;
+    }
+
+    .welcome-photo {
+        max-height: 300px;
+        object-position: top;
+    }
+
+    .content-section__img {
+        float: none;
+        width: 100%;
+        margin: 0 0 1rem 0;
+    }
+
     /* Cards: single column */
     .card-grid {
         grid-template-columns: 1fr;
     }
 
     /* Accordion & subject tree: single column */
-    .accordion-grid,
+    .accordion-grid {
+        grid-template-columns: 1fr;
+    }
+
     .subject-tree {
         grid-template-columns: 1fr;
     }
@@ -1643,4 +1932,5 @@ hr {
     .breadcrumb {
         font-size: 0.85em;
     }
+
 }
