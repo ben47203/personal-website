@@ -259,7 +259,7 @@ function initSubjectTreeToggle() {
 function initPaneGlow() {
     /* Structural panes get accent1 glow, nested blocks get softer accent2 glow */
     const structuralSelector = '.site-header .pane, .site-sidebar .pane, .site-main .pane';
-    const nestedSelector = '.card, .resume-block, .timeline__card, .accordion, .subject-tree__folder';
+    const nestedSelector = '.card, .resume-block, .subject-tree__folder';
     const glowSelector = structuralSelector + ',' + nestedSelector;
 
     let currentGlow = null;
