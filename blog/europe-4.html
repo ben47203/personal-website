@@ -7,135 +7,22 @@
     <title>Last Two Weeks of Europe - Ben Bryant</title>
     <!-- External stylesheet — single CSS file for entire site -->
     <link rel="stylesheet" href="../css/style.css?v=9">
-<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
     <!-- Mobile overlay backdrop for sidebar -->
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
     <div class="site-layout">
-
-        <!-- ============================================
-             PANE 0: HEADER
-             Breadcrumb path + quick nav links
-             ============================================ -->
-        <header class="site-header">
-            <section class="pane" data-pane="0: Header">
-                <div class="header-content">
-                    <!-- Mobile menu toggle (visible on small screens) -->
-                    <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">[=]</button>
-
-                    <!-- Breadcrumb navigation -->
-                    <nav class="breadcrumb" aria-label="Breadcrumb">
-                        <span class="breadcrumb__separator">/</span>
-                        <a href="../index.html">Users</a>
-                        <span class="breadcrumb__separator">/</span>
-                        <a href="../index.html">Ben_Bryant</a>
-                        <span class="breadcrumb__separator">/</span>
-                        <a href="../blog.html">Blog</a>
-                        <span class="breadcrumb__separator">/</span>
-                        <span class="breadcrumb__current">Last Two Weeks of Europe</span>
-                    </nav>
-
-                    <!-- Quick links -->
-                    <nav class="header-nav" aria-label="Quick links">
-                        <a href="../contact.html" class="tui-btn tui-btn--t3">Contact</a>
-                        <a href="../help.html" class="tui-btn tui-btn--t4">? Help</a>
-                    </nav>
-                </div>
-            </section>
-        </header>
-
-                <!-- ============================================
-             PANE 1: SIDEBAR
-             File tree with inline Nerd Font icons
-             ============================================ -->
-        <aside class="site-sidebar" id="sidebar">
-            <section class="pane" data-pane="1: Sidebar">
-                <nav class="file-tree" aria-label="Site navigation">
-                    <div class="file-tree__list">
-                        <details class="file-tree__folder" open>
-                            <summary><span class="nf-icon nf-icon--folder">󰉋</span> ~/Ben_Bryant</summary>
-                            <div class="file-tree__children">
-                                <a href="../index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html (home)</a>
-                                <details class="file-tree__folder" open>
-                                    <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Projects</summary>
-                                    <div class="file-tree__children">
-                                        <a href="../projects.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> projects.html</a>
-                                        <a href="../projects/gena.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> gena.html</a>
-                                        <a href="../projects/visulus.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> visulus.html</a>
-                                        <a href="../projects/jarvis.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> jarvis.html</a>
-                                        <a href="../projects/tdash.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> tdash.html</a>
-                                    </div>
-                                </details>
-                                <details class="file-tree__folder" open>
-                                    <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Personal Blog</summary>
-                                    <div class="file-tree__children">
-                                        <a href="../blog.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> blog.html</a>
-                                        <a href="../blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 My Travels Through Europe So Far</a>
-                                        <a href="../blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 From Greece to Oxford</a>
-                                        <a href="../blog/europe-3.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Lady Margaret Hall, Oxford</a>
-                                        <a href="../blog/europe-4.html" class="file-tree__link--active"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Last Two Weeks of Europe</a>
-                                    </div>
-                                </details>
-                                <details class="file-tree__folder" open>
-                                    <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Assignments &amp; Writing</summary>
-                                    <div class="file-tree__children">
-                                        <a href="../writing.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> writing.html</a>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Economics</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../writing/economics.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> economics.html</a>
-                                                <a href="../writing/economics/essay-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> essay-1.html</a>
-                                                <a href="../writing/economics/essay-2.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> essay-2.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Physics</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../writing/physics.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> physics.html</a>
-                                                <a href="../writing/physics/essay-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> essay-1.html</a>
-                                                <a href="../writing/physics/essay-2.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> essay-2.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> English</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../writing/english.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> english.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Maths</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../writing/maths.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> maths.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">└ </span><span class="nf-icon nf-icon--folder">󰉋</span> Geography</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../writing/geography.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> geography.html</a>
-                                            </div>
-                                        </details>
-                                    </div>
-                                </details>
-                                <a href="../resume.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
-                                <a href="../contact.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> contact.html</a>
-                                <a href="../help.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> help.html</a>
-                            </div>
-                        </details>
-                    </div>
-                </nav>
-            </section>
-        </aside>
-
+        <!-- Header, sidebar, footer injected by initSharedComponents() -->
+        <header class="site-header"></header>
+        <aside class="site-sidebar" id="sidebar"></aside>
 
         <!-- ============================================
              PANE 2: MAIN CONTENT — Blog Post
              ============================================ -->
-        <main class="site-main">
+        <main class="site-main" data-label="2: Blog Post">
             <section class="pane pane--active" data-pane="2: Blog Post">
                 <div class="main-content">
-
 
                     <article>
                         <div class="article-header">
@@ -155,6 +42,11 @@
 
                             <p>Next was the Eiffel Tower, which we climbed halfway up using the stairs — surprisingly good value. There were great views of Paris all the way up, and it was certainly far taller than I expected. When I returned to my hostel, every other person in the 8-bed room was there and awake, which is almost unheard of. Everyone got along well, and with a group of about 20, we headed to the Eiffel Tower to enjoy the night.</p>
 
+                            <div class="article-gallery">
+                                <img src="../images/blog 4/1.jpeg" alt="-" >
+                                <img src="../images/blog 4/2.jpeg" alt="-" >
+                            </div>
+
                             <h2>Mt Ventoux</h2>
 
                             <p>Early the next day I caught a TGV down to Avignon and began to prepare for an adventure. To complement the cheapest sleeping bag, tarp, and mat I could find in Paris, I provisioned 7 litres of water, some tinned salmon, apples, carrots, and bread. From there I caught a regional train for an hour, then a random minibus that comes once every three hours for 1 euro, and then hiked a few kilometres to the base of Mt Ventoux.</p>
@@ -163,12 +55,23 @@
 
                             <p>The next morning I woke up freezing and hiked the remaining distance of the 1,900-metre elevation mountain with my roughly 28-kilogram pack and saw the Tour. There were heaps of people, an impressive entourage before the riders, and then the race crossed the summit at a crazy speed. That night I managed to find the same camp spot again before dark. Soon after, I heard oinking and rustling — this area of France is infested with wild pigs. I stayed dead quiet and prayed, and thankfully they went the other way.</p>
 
-                            <!-- Title image for blog post -->
-                            <img src="../images/blog-italy-coast.png" alt="Cinque Terre, Italian coast" onerror="this.style.background='var(--background3)';this.style.height='300px';this.style.display='block';this.alt='[Photo placeholder]';">
+                            <div class="article-gallery">
+                                <img src="../images/blog 4/3.jpeg" alt="-" >
+                                <img src="../images/blog 4/4.jpeg" alt="-" >
+                                <img src="../images/blog 4/5.jpeg" alt="-" >
+                            </div>
 
-                            <h2>Nice and Monaco</h2>
+                            <h2>Nice </h2>
 
-                            <p>Nice was nice. After staying a night, I passed through Monaco for a day. It was a very interesting city that fits its stereotype well — spotless, with countless glistening apartment buildings overlooking the iconic marina. There wasn't much I could afford to do apart from taking in the views, seeing the Monte Carlo Casino, and supercar spotting. The density of supercars was crazy, much higher than Dubai or anywhere else I have seen.</p>
+                            <p>Nice was nice. </p>
+
+                            <h2> Monaco</h2>
+
+                            <p>After staying a night in Nice, I passed through Monaco for a day. It was a very interesting city that fits its stereotype well. It is spotless, with countless glistening apartment buildings overlooking the iconic Marina. There wasn’t much I could afford to do apart from taking in the views of the city, seeing the Monte Carlo Casino, and supercar spotting. Here the density of supercars was crazy, much higher than Dubai or anywhere else I have seen, but still not as many as social media would have you think.</p>
+                           
+                            <div class="article-gallery">
+                                <img src="../images/blog 4/6.jpeg" alt="-" >
+                            </div>
 
                             <h2>Uscio</h2>
 
@@ -176,38 +79,62 @@
 
                             <p>The next day I went to the actual town of Portofino with Faith and Brandon, two friends from the hostel. It was a truly beautiful part of the world. We made the most of the attractions, gazing over the amazing views from the old castle and then getting some pasta and taking the ferry back. That night, English pop music started blaring in the tiny town — there was a DJ in the town square for a whole town dance party, so all the hostel guests ended up doing the YMCA with the locals.</p>
 
+                            <div class="article-gallery">
+                                <img src="../images/blog 4/7.jpeg" alt="-" >
+                                <img src="../images/blog 4/8.jpeg" alt="-" >
+                            </div>
+
                             <h2>Cinque Terre</h2>
 
                             <p>The next stop was the Cinque Terre — the five towns — consisting of five very picturesque towns along the Italian coast. They all have dense, multicoloured houses on steep rocks and are the first image that comes up when you search "Italian seaside town." I took this stage at a slower pace: relaxing, swimming, cliff jumping, and hiking. On the roughly 15-kilometre hike between the towns I ran into one of the people staying in my room, and he had his drone with him, so we got some amazing pictures from the top of one of the cliffs. It was certainly one of the most beautiful hikes I have done.</p>
 
-                            <h2>Pisa and Florence</h2>
+                            <div class="article-gallery">
+                                <img src="../images/blog 4/9.jpeg" alt="-" >
+                                <img src="../images/blog 4/10.jpeg" alt="-" >
+                            </div>
 
-                            <p>I stopped in Pisa for a bit over an hour on my way to Rome, and that was honestly probably too long. It is a small, underwhelming town, and really the only main attraction is the tower. It was quite funny — the streets were all very quiet right up until I turned the corner into the main square with the tower, and then there were tourists everywhere, all trying to get that perfect photo supporting it. To be fair, the tower was on a much steeper slant than what it looks like in photos.</p>
+                            <h2>Pisa</h2>
 
-                            <p>I also fit the lively city of Florence into the same day. The cathedral was definitely up there with Cologne and Notre Dame with its green and pink marble, but still nothing compared to what was to come in Rome. Along with every other tourist, I made the pilgrimage to the Piazzale Michelangelo, where there is the stunning, iconic, panoramic view of the city.</p>
+                            <p>I stopped in for a bit over an hour on my way to Rome, and that was honestly probably too long. Pisa is a small, underwhelming town, and really the only main attraction is the tower, with the side dishes of the cathedral and baptistery to complement it. It was quite funny; the streets were all very quiet right up until I turned the corner into the main square with the tower, and then there were tourists everywhere, all trying to get that perfect photo supporting the tower. To be fair, the tower was pretty cool. It is on a much steeper slant than what it looks like in photos or you expect.</p>
+
+                            <div class="article-gallery">
+                                <img src="../images/blog 4/11.jpeg" alt="-" >
+                            </div>
+
+                            <h2>Florence</h2>
+
+                            <p>Also fit the lively city of Florence into the same day. I started with the cathedral, which was definitely up there with the Cologne Cathedral and Notre Dame for the best I had seen yet with its green and pink marble, but still nothing compared to what was to come in Rome. The entire city was like the old town of others I had visited, with winding cobbled streets and dense buildings, which made exploring interesting. There was a replica of David by Michelangelo in a fountain, the former place of the original, and many art installations throughout. </p>
+
+                            <p>Along with every other tourist, I made the pilgrimage to the Piazzale Michelangelo, where there is the stunning, iconic, panoramic view of the city. From here I meandered back to the train station via the golden bridge and Leather Street, named for its many, questionably authentic, street vendors.</p>
+
+                            <div class="article-gallery">
+                                <img src="../images/blog 4/12.jpeg" alt="-" >
+                                <img src="../images/blog 4/13.jpeg" alt="-" >
+                            </div>
 
                             <h2>Rome</h2>
 
                             <p>Rome was the final location of my seven-week journey, and my time mostly consisted of exploring the ancient attractions it is known for. Coincidentally my visit coincided with the Catholic Jubilee, meaning that many young Catholics from around the world were coming to make a pilgrimage. The crowds were insane, probably the biggest I had ever been in.</p>
 
                             <p>I visited plenty of churches, and they were beyond words. St Peter's Basilica was incredibly large with impossibly intricate mosaics and a huge crowd to match. The Vatican Museum exceeded expectations with more wonderful art than I had probably seen previously in my entire life combined. The Colosseum, Trevi Fountain, Palatine Hill, and the various other attractions were all thoroughly interesting.</p>
+
+                            <div class="article-gallery">
+                                <img src="../images/blog 4/14.jpeg" alt="-" >
+                                <img src="../images/blog 4/15.jpeg" alt="-" >
+                                <img src="../images/blog 4/16.jpeg" alt="-" >    
+                            <div>                           
                         </div>
                     </article>
 
                 </div>
             </section>
         </main>
-
-        <!-- ============================================
-             FOOTER
-             ============================================ -->
-        <footer class="site-footer">
-            <p>&copy; Ben Bryant 2026</p>
-        </footer>
+        <footer class="site-footer"></footer>
 
     </div>
 
     <!-- External JavaScript -->
+    <script>window.PAGE = { base: '../', title: 'Last Two Weeks of Europe', breadcrumb: [['Blog', 'blog.html']] };</script>
     <script src="../js/script.js?v=4"></script>
 </body>
 </html>

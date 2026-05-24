@@ -90,6 +90,23 @@ ul, ol {
     list-style: none;
 }
 
+/* visible bullet/number lists inside articles */
+.article-content ul {
+    list-style: disc;
+    padding-left: 2ch;
+    margin-bottom: 1.2em;
+}
+
+.article-content ol {
+    list-style: decimal;
+    padding-left: 2ch;
+    margin-bottom: 1.2em;
+}
+
+.article-content li {
+    margin-bottom: 0.4em;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -219,9 +236,9 @@ good for each of the main panes
 
 /* (border-color and background already set by .pane base rule) */
 
-/* Active pane highlight */
+/* Active pane — same border as header/sidebar (accent1) */
 .pane--active {
-    border-color: var(--accent2);
+    border-color: var(--accent1);
 }
 
 
@@ -242,7 +259,7 @@ good for each of the main panes
     grid-template-rows: auto 1fr auto;
     height: 100vh;
     gap: var(--gap);
-    padding: var(--gap);
+    padding: var(--gap) var(--gap) 0.1rem;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -536,21 +553,16 @@ good for each of the main panes
     margin: 0 0 1rem 1.5rem;
 }
 
-.welcome-photo {
+/* Images inside the welcome aside — headshot and github graph */
+.welcome-aside img {
     width: 100%;
     height: auto;
     border: 1px solid var(--accent2);
-    object-fit: cover;
     display: block;
 }
 
-/* GitHub graph — full width of the aside container */
-.welcome-github__img {
-    width: 100%;
-    height: auto;
+.welcome-aside img + img {
     margin-top: 0.5rem;
-    border: 1px solid var(--accent2);
-    display: block;
 }
 
 /* Blinking cursor for terminal effect */
@@ -578,16 +590,11 @@ good for each of the main panes
 /* Section images — float right with border, text wraps around */
 .content-section__img {
     float: right;
-    width: 250px;
+    width: 300px;
     height: auto;
     margin: 0 0 1rem 1rem;
     border: 1px solid var(--accent2);
     display: block;
-}
-
-/* Wide variant — matches welcome-aside width (300px) */
-.content-section__img--wide {
-    width: 300px;
 }
 
 
@@ -997,10 +1004,10 @@ good for each of the main panes
 }
 
 
-/* ============================================================
+/* =======================================================
    11d. SIGNUP FORM (blog page)
    Email signup bar replacing search
-   ============================================================ */
+   ========================================================== */
 
 .signup-bar {
     margin-bottom: 1.5rem;
@@ -1111,10 +1118,11 @@ good for each of the main panes
 
 .site-footer {
     border-top: 1px solid var(--accent1);
-    padding: 0.8em 0;
+    padding: 0.5em 0 0;
     color: var(--foreground3);
     font-size: 0.85em;
     text-align: left;
+    margin-top: 10px;
 }
 
 
@@ -1175,6 +1183,22 @@ good for each of the main panes
 .article-content img {
     margin: 1.5em 0;
     border: 1px solid var(--accent2);
+}
+
+/* Image gallery — side by side at bottom of article, wraps on smaller screens */
+.article-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 2em;
+}
+
+.article-gallery img {
+    height: 220px;
+    width: auto;
+    object-fit: cover;
+    border: 1px solid var(--accent2);
+    margin: 0;
 }
 
 /* Mobile overlay backdrop */
@@ -1308,7 +1332,7 @@ good for each of the main panes
         margin: 0 0 1rem 0;
     }
 
-    .welcome-photo {
+    .welcome-aside img:first-child {
         max-height: 300px;
         object-position: top;
     }

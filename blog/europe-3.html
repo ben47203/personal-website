@@ -13,128 +13,16 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
     <div class="site-layout">
-
-        <!-- ============================================
-             PANE 0: HEADER
-             Breadcrumb path + quick nav links
-             ============================================ -->
-        <header class="site-header">
-            <section class="pane" data-pane="0: Header">
-                <div class="header-content">
-                    <!-- Mobile menu toggle (visible on small screens) -->
-                    <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">[=]</button>
-
-                    <!-- Breadcrumb navigation -->
-                    <nav class="breadcrumb" aria-label="Breadcrumb">
-                        <span class="breadcrumb__separator">/</span>
-                        <a href="../index.html">Users</a>
-                        <span class="breadcrumb__separator">/</span>
-                        <a href="../index.html">Ben_Bryant</a>
-                        <span class="breadcrumb__separator">/</span>
-                        <a href="../blog.html">Blog</a>
-                        <span class="breadcrumb__separator">/</span>
-                        <span class="breadcrumb__current">Lady Margaret Hall, Oxford</span>
-                    </nav>
-
-                    <!-- Quick links -->
-                    <nav class="header-nav" aria-label="Quick links">
-                        <a href="../contact.html" class="tui-btn tui-btn--t3">Contact</a>
-                        <a href="../help.html" class="tui-btn tui-btn--t4">? Help</a>
-                    </nav>
-                </div>
-            </section>
-        </header>
-
-                <!-- ============================================
-             PANE 1: SIDEBAR
-             File tree with inline Nerd Font icons
-             ============================================ -->
-        <aside class="site-sidebar" id="sidebar">
-            <section class="pane" data-pane="1: Sidebar">
-                <nav class="file-tree" aria-label="Site navigation">
-                    <div class="file-tree__list">
-                        <details class="file-tree__folder" open>
-                            <summary><span class="nf-icon nf-icon--folder">󰉋</span> ~/Ben_Bryant</summary>
-                            <div class="file-tree__children">
-                                <a href="../index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html (home)</a>
-                                <details class="file-tree__folder" open>
-                                    <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Projects</summary>
-                                    <div class="file-tree__children">
-                                        <a href="../projects.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> projects.html</a>
-                                        <a href="../projects/gena.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> gena.html</a>
-                                        <a href="../projects/visulus.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> visulus.html</a>
-                                        <a href="../projects/jarvis.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> jarvis.html</a>
-                                        <a href="../projects/tdash.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> tdash.html</a>
-                                    </div>
-                                </details>
-                                <details class="file-tree__folder" open>
-                                    <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Personal Blog</summary>
-                                    <div class="file-tree__children">
-                                        <a href="../blog.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> blog.html</a>
-                                        <a href="../blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 My Travels Through Europe So Far</a>
-                                        <a href="../blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 From Greece to Oxford</a>
-                                        <a href="../blog/europe-3.html" class="file-tree__link--active"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Lady Margaret Hall, Oxford</a>
-                                        <a href="../blog/europe-4.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Last Two Weeks of Europe</a>
-                                    </div>
-                                </details>
-                                <details class="file-tree__folder" open>
-                                    <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Assignments &amp; Writing</summary>
-                                    <div class="file-tree__children">
-                                        <a href="../writing.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> writing.html</a>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Economics</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../writing/economics.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> economics.html</a>
-                                                <a href="../writing/economics/essay-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> essay-1.html</a>
-                                                <a href="../writing/economics/essay-2.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> essay-2.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Physics</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../writing/physics.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> physics.html</a>
-                                                <a href="../writing/physics/essay-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> essay-1.html</a>
-                                                <a href="../writing/physics/essay-2.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> essay-2.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> English</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../writing/english.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> english.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Maths</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../writing/maths.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> maths.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">└ </span><span class="nf-icon nf-icon--folder">󰉋</span> Geography</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../writing/geography.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> geography.html</a>
-                                            </div>
-                                        </details>
-                                    </div>
-                                </details>
-                                <a href="../resume.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
-                                <a href="../contact.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> contact.html</a>
-                                <a href="../help.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> help.html</a>
-                            </div>
-                        </details>
-                    </div>
-                </nav>
-            </section>
-        </aside>
-
+        <!-- Header, sidebar, footer injected by initSharedComponents() -->
+        <header class="site-header"></header>
+        <aside class="site-sidebar" id="sidebar"></aside>
 
         <!-- ============================================
              PANE 2: MAIN CONTENT — Blog Post
              ============================================ -->
-        <main class="site-main">
+        <main class="site-main" data-label="2: Blog Post">
             <section class="pane pane--active" data-pane="2: Blog Post">
                 <div class="main-content">
-
 
                     <article>
                         <div class="article-header">
@@ -150,8 +38,10 @@
 
                             <p>People from over 50 countries took part, so I had the privilege of making new friends all around the world from countries including the United States, the United Kingdom, France, the Netherlands, Spain, Switzerland, Denmark, Sweden, Ukraine, Russia, the Czech Republic, South Africa, India, Pakistan, China, Taiwan, South Korea, Vietnam, New Zealand, and Australia.</p>
 
-                            <!-- Title image for blog post -->
-                            <img src="../images/blog-oxford-lmh.png" alt="Lady Margaret Hall, University of Oxford" onerror="this.style.background='var(--background3)';this.style.height='300px';this.style.display='block';this.alt='[Photo placeholder]';">
+                            <div class="article-gallery">
+                                <img src="../images/blog 3/1.jpeg" alt="From the gardens of Lady Margaret Hall" >
+                                <img src="../images/blog 3/2.jpeg" alt="A picture with all the Australians in the program" >
+                            </div>
 
                             <h2>Activities</h2>
 
@@ -159,11 +49,24 @@
 
                             <p>Continuing on the maritime theme, we were able to go punting on the river next to Lady Margaret Hall. Punting involves pushing a long, flat, wooden boat along a shallow river with a long stick. The resistance against the riverbed acts as propulsion instead of rowing; it is a popular activity and attraction in both Oxford and Cambridge. It was challenging at first, but quite fun once I got the hang of it. On my second go, I got a bit overconfident, jammed the stick in the riverbed too hard, it got stuck, and I tried to pull it back but ended up pulling myself in.</p>
 
+                            <div class="article-gallery">
+                                <img src="../images/blog 3/3.jpeg" alt="Driving a boat in Stratford-upon-Avon" >
+                                <img src="../images/blog 3/4.jpeg" alt="Me punting on the river" >
+                                <img src="../images/blog 3/5.jpeg" alt="Me in the river after falling in" >
+                            </div> 
+
                             <p>The programme provided us with a tour of the Ashmolean Museum with one of the lead curators, which was very interesting. I also participated in a mediaeval manuscripts viewing session — it is amazing how well they were preserved. Additionally, we had guest lectures on literature and science and a drinks reception in the Pitt Rivers Museum.</p>
 
                             <p>A highlight was being able to participate in a debate in the Oxford Union chambers. People who have spoken in the same chambers include Queen Elizabeth the Second, Winston Churchill, Ronald Reagan, the Dalai Lama, Albert Einstein, and Elton John. I argued against the motion that "This house believes artificial intelligence undermines human creativity and innovation" — I feel I presented a strong closing argument, but unfortunately we were not able to convince a majority.</p>
 
                             <p>We also had a day trip to the British Museum in London. They had so much stuff, it was almost overwhelming. The items I found the most interesting were traditional textiles from Afghanistan — since the country has been in conflict for so long and remains very underdeveloped, imagery of modern military equipment is present in traditionally woven textiles. While in London I did my tourist duties of visiting the bridge, the palace, Westminster Abbey, Big Ben, and, inadvertently, the Beatles' crosswalk.</p>
+
+                            <div class="article-gallery">
+                                <img src="../images/blog 3/6.jpeg" alt="ive had enough of writing alt text" >
+                                <img src="../images/blog 3/7.jpeg" alt="-" >
+                                <img src="../images/blog 3/8.jpeg" alt="-" >
+                                <img src="../images/blog 3/9.jpeg" alt="Big Ben in London" >
+                            </div>
 
                             <h2>Coursework</h2>
 
@@ -175,28 +78,33 @@
 
                             <p>Basically, there is no magic going on with AI; it is all just maths, and it is amazing how quickly and easily you can implement it.</p>
 
+                            <div class="article-gallery">
+                                <img src="../images/blog 3/10.jpeg" alt="-" >
+                                <img src="../images/blog 3/11.jpeg" alt="-" >
+                            </div>
+
                             <h2>Oxford</h2>
 
                             <p>Oxford was a great place to study. Even outside of term, it had a vibrant energy thanks to the youthful demographic and surprising amount of tourists. Lady Margaret Hall was about a 20-minute walk, via the beautiful university parks, to the city centre. It truly lives up to its reputation — there are buildings that are hundreds and hundreds of years old around every corner. Underneath one bridge and down a very narrow twisting alleyway was a 600-plus-year-old pub.</p>
 
                             <p>Following the theme of the previous posts, the people in the programme truly made it special — not so much the place. At the end of the day it is just a university. Oxford may be more successful and have marginally better quality of teaching than others, but I am sure that even during the term, it is the unique and interesting students that bring it to life.</p>
+
+                            <div class="article-gallery">
+                                <img src="../images/blog 3/12.jpeg" alt="The view from the university parks in Oxford" >
+                                <img src="../images/blog 3/13.jpeg" alt="The view from the university parks in Oxford" >
+                            </div>
                         </div>
                     </article>
 
                 </div>
             </section>
         </main>
-
-        <!-- ============================================
-             FOOTER
-             ============================================ -->
-        <footer class="site-footer">
-            <p>&copy; Ben Bryant 2026</p>
-        </footer>
+        <footer class="site-footer"></footer>
 
     </div>
 
     <!-- External JavaScript -->
+    <script>window.PAGE = { base: '../', title: 'My Memorable Time at Lady Margaret Hall, Oxford', breadcrumb: [['Blog', 'blog.html']] };</script>
     <script src="../js/script.js?v=4"></script>
 </body>
 </html>

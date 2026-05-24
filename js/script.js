@@ -1,47 +1,171 @@
-/* ============================================================
-   PERSONAL WEBSITE — JavaScript
-   DECO1400 S1 2026 — Ben Bryant
+/* script.js
+   all the interactive stuff for the site - shared components,
+   sidebar highlighting, mobile menu, form validation, glow, etc.
+   sidebar folders use native <details>/<summary> so no JS needed there */
 
-   Interactivity: active page highlighting, mobile menu,
-   form validation, blog signup, cursor blink.
-   Sidebar folders use native <details>/<summary> — no JS needed.
-   ============================================================ */
-
-
-/* === MAIN INITIALIZATION === */
 document.addEventListener('DOMContentLoaded', function() {
-    initPaneLabels();
+    initSharedComponents();
     initActivePageHighlight();
     initMobileMenu();
     initFormValidation();
     initSignupForm();
-    initCursorBlink();
     initSubjectTreeToggle();
     initPaneGlow();
     initResumeTree();
 });
 
 
-/* ============================================================
-   PANE LABELS
-   Copies data-pane from inner pane to wrapper's data-label
-   so the CSS ::before on the non-scrolling wrapper can show it.
-   ============================================================ */
-function initPaneLabels() {
-    /* Copy data-pane from inner pane to wrapper for CSS attr() */
-    const main = document.querySelector('.site-main');
-    const pane = main ? main.querySelector('.pane[data-pane]') : null;
-    if (main && pane) {
-        main.setAttribute('data-label', pane.getAttribute('data-pane'));
-    }
+/* ---- SHARED COMPONENTS ----
+   header/sidebar/footer were duplicated across 24 pages which was
+   a nightmare to maintain. now each page just has empty placeholder
+   elements and a window.PAGE config object, and this injects the
+   actual HTML from templates. the 'base' path prefix handles pages
+   at different directory depths (../ or ../../ etc) */
+
+// nerd font icon codepoints - private use area chars from the woff2 file
+const ICON_FOLDER = '\u{F024B}';
+const ICON_HTML   = '\uE736';
+const ICON_FILE   = '\uF15C';
+
+function initSharedComponents() {
+    const config = window.PAGE || { base: '', title: 'Home', breadcrumb: [] };
+    const base = config.base;
+
+    // only inject if the element is empty (hasn't been filled yet)
+    const header = document.querySelector('.site-header');
+    if (header && !header.children.length) header.innerHTML = buildHeader(config);
+
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar && !sidebar.children.length) sidebar.innerHTML = buildSidebar(base);
+
+    const footer = document.querySelector('.site-footer');
+    if (footer && !footer.children.length) footer.innerHTML = buildFooter();
+}
+
+// wraps a nerd font icon char in a span for CSS styling
+function nf(type) {
+    return '<span class="nf-icon nf-icon--' + type + '">' +
+        (type === 'folder' ? ICON_FOLDER : type === 'html' ? ICON_HTML : ICON_FILE) +
+        '</span>';
+}
+
+// tree connector character (├ └ etc) wrapped in span
+function tc(ch) {
+    return '<span class="tree-char">' + ch + ' </span>';
+}
+
+// builds a single file link for the sidebar tree
+function fl(base, href, icon, label, treeCh) {
+    return '<a href="' + base + href + '">' + tc(treeCh) + nf(icon) + ' ' + label + '</a>';
+}
+
+// builds a collapsible folder using native <details>/<summary>
+function folder(base, treeCh, name, children, isOpen) {
+    return '<details class="file-tree__folder"' + (isOpen ? ' open' : '') + '>' +
+        '<summary>' + tc(treeCh) + nf('folder') + ' ' + name + '</summary>' +
+        '<div class="file-tree__children">' + children + '</div></details>';
+}
+
+// header: mobile menu button + breadcrumb path + contact/help buttons
+function buildHeader(config) {
+    const base = config.base;
+
+    // breadcrumb always starts /Users/Ben_Bryant then adds parent pages
+    let crumbs = '<span class="breadcrumb__separator">/</span>' +
+        '<a href="' + base + 'index.html">Users</a>' +
+        '<span class="breadcrumb__separator">/</span>' +
+        '<a href="' + base + 'index.html">Ben_Bryant</a>';
+
+    // intermediate crumbs from the page config array
+    config.breadcrumb.forEach(function(item) {
+        crumbs += '<span class="breadcrumb__separator">/</span>' +
+            '<a href="' + base + item[1] + '">' + item[0] + '</a>';
+    });
+
+    // current page at the end (not clickable)
+    crumbs += '<span class="breadcrumb__separator">/</span>' +
+        '<span class="breadcrumb__current">' + config.title + '</span>';
+
+    return '<section class="pane" data-pane="0: Header">' +
+        '<div class="header-content">' +
+            '<button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">[=]</button>' +
+            '<nav class="breadcrumb" aria-label="Breadcrumb">' + crumbs + '</nav>' +
+            '<nav class="header-nav" aria-label="Quick links">' +
+                '<a href="' + base + 'contact.html" class="tui-btn tui-btn--t3">Contact</a>' +
+                '<a href="' + base + 'help.html" class="tui-btn tui-btn--t4">? Help</a>' +
+            '</nav>' +
+        '</div></section>';
+}
+
+// sidebar: full file tree mirroring the site structure
+function buildSidebar(base) {
+    const b = base;
+    return '<section class="pane" data-pane="1: Sidebar">' +
+        '<nav class="file-tree" aria-label="Site navigation">' +
+        '<div class="file-tree__list">' +
+        '<details class="file-tree__folder" open>' +
+            '<summary>' + nf('folder') + ' ~/Ben_Bryant</summary>' +
+            '<div class="file-tree__children">' +
+
+                fl(b, 'index.html', 'html', 'index.html (home)', '\u251C') +
+
+                folder(b, '\u251C', 'Projects',
+                    fl(b, 'projects.html', 'html', 'projects.html', '\u251C') +
+                    fl(b, 'projects/gena.html', 'file', 'gena.html', '\u251C') +
+                    fl(b, 'projects/visulus.html', 'file', 'visulus.html', '\u251C') +
+                    fl(b, 'projects/jarvis.html', 'file', 'jarvis.html', '\u251C') +
+                    fl(b, 'projects/tdash.html', 'file', 'tdash.html', '\u2514'),
+                true) +
+
+                folder(b, '\u251C', 'Personal Blog',
+                    fl(b, 'blog.html', 'html', 'blog.html', '\u251C') +
+                    fl(b, 'blog/europe-1.html', 'file', '#1 My Travels Through Europe So Far', '\u251C') +
+                    fl(b, 'blog/europe-2.html', 'file', '#2 From Greece to Oxford', '\u251C') +
+                    fl(b, 'blog/europe-3.html', 'file', '#3 Lady Margaret Hall, Oxford', '\u251C') +
+                    fl(b, 'blog/europe-4.html', 'file', '#4 Last Two Weeks of Europe', '\u2514'),
+                true) +
+
+                folder(b, '\u251C', 'Assignments &amp; Writing',
+                    fl(b, 'writing.html', 'html', 'writing.html', '\u251C') +
+                    folder(b, '\u251C', 'Economics',
+                        fl(b, 'writing/economics.html', 'html', 'economics.html', '\u251C') +
+                        fl(b, 'writing/economics/essay-1.html', 'file', 'essay-1.html', '\u251C') +
+                        fl(b, 'writing/economics/essay-2.html', 'file', 'essay-2.html', '\u2514'),
+                    false) +
+                    folder(b, '\u251C', 'Physics',
+                        fl(b, 'writing/physics.html', 'html', 'physics.html', '\u251C') +
+                        fl(b, 'writing/physics/essay-1.html', 'file', 'essay-1.html', '\u251C') +
+                        fl(b, 'writing/physics/essay-2.html', 'file', 'essay-2.html', '\u2514'),
+                    false) +
+                    folder(b, '\u251C', 'English',
+                        fl(b, 'writing/english.html', 'html', 'english.html', '\u2514'),
+                    false) +
+                    folder(b, '\u251C', 'Maths',
+                        fl(b, 'writing/maths.html', 'html', 'maths.html', '\u2514'),
+                    false) +
+                    folder(b, '\u2514', 'Geography',
+                        fl(b, 'writing/geography.html', 'html', 'geography.html', '\u2514'),
+                    false),
+                true) +
+
+                fl(b, 'resume.html', 'html', 'resume.html', '\u251C') +
+                fl(b, 'contact.html', 'html', 'contact.html', '\u251C') +
+                fl(b, 'help.html', 'html', 'help.html', '\u2514') +
+
+            '</div>' +
+        '</details>' +
+        '</div></nav></section>';
+}
+
+function buildFooter() {
+    return '<p>&copy; Ben Bryant 2026</p>';
 }
 
 
-/* ============================================================
-   ACTIVE PAGE HIGHLIGHTING
-   Matches current URL path to sidebar links and marks the
-   matching item as active. Also opens parent <details> folders.
-   ============================================================ */
+
+/* ---- ACTIVE PAGE HIGHLIGHTING ----
+   figures out which page we're on and highlights that link in the
+   sidebar. also opens any parent folders so it's actually visible */
 function initActivePageHighlight() {
     const currentPath = window.location.pathname;
     const currentPage = currentPath.split('/').pop() || 'index.html';
@@ -51,14 +175,12 @@ function initActivePageHighlight() {
         const href = link.getAttribute('href');
         if (!href || href === '#') return;
 
-        /* Extract just the filename for comparison */
         const linkPage = href.split('/').pop();
 
-        /* Match by filename or full path ending */
         if (currentPage === linkPage || currentPath.endsWith(href)) {
             link.classList.add('file-tree__link--active');
 
-            /* Open all parent <details> so this link is visible */
+            // walk up and open all parent <details> so link is visible
             let parent = link.closest('details');
             while (parent) {
                 parent.setAttribute('open', '');
@@ -69,21 +191,17 @@ function initActivePageHighlight() {
 }
 
 
-/* ============================================================
-   MOBILE MENU TOGGLE
-   Shows/hides the sidebar on mobile via class toggle.
-   Also manages an overlay backdrop for click-to-close.
-   ============================================================ */
+/* ---- MOBILE MENU ----
+   on mobile the sidebar is off-screen. the [=] button slides it in,
+   and theres a dark overlay behind it that closes on click */
 function initMobileMenu() {
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.querySelector('.sidebar-overlay');
-
     if (!menuToggle || !sidebar) return;
 
     menuToggle.addEventListener('click', function() {
         const isOpen = sidebar.classList.contains('site-sidebar--open');
-
         if (isOpen) {
             closeMobileMenu(sidebar, overlay, menuToggle);
         } else {
@@ -94,7 +212,6 @@ function initMobileMenu() {
         }
     });
 
-    /* Close sidebar when overlay is clicked */
     if (overlay) {
         overlay.addEventListener('click', function() {
             closeMobileMenu(sidebar, overlay, menuToggle);
@@ -102,7 +219,6 @@ function initMobileMenu() {
     }
 }
 
-/* Helper to close mobile menu */
 function closeMobileMenu(sidebar, overlay, toggle) {
     sidebar.classList.remove('site-sidebar--open');
     if (overlay) overlay.classList.remove('sidebar-overlay--visible');
@@ -113,63 +229,54 @@ function closeMobileMenu(sidebar, overlay, toggle) {
 }
 
 
-/* ============================================================
-   FORM VALIDATION
-   Terminal-styled validation for the contact form.
-   Validates name, email, and message fields.
-   ============================================================ */
+/* ---- CONTACT FORM VALIDATION ----
+   custom validation instead of browser popups (novalidate on form).
+   checks name/email/message, shows red border + error text below field */
 function initFormValidation() {
     const form = document.querySelector('.contact-form');
-    if (!form) return;
+    if (!form) return; // only on contact.html
 
     form.addEventListener('submit', function(event) {
-        event.preventDefault();
+        event.preventDefault(); // no backend, just validate
         let isValid = true;
 
         const name = form.querySelector('#contact-name');
         const email = form.querySelector('#contact-email');
         const message = form.querySelector('#contact-message');
 
-        /* Clear previous errors */
         clearFormErrors(form);
 
-        /* Validate name */
         if (!name.value.trim()) {
             showFieldError(name, 'ERROR: Name field cannot be empty');
             isValid = false;
         }
-
-        /* Validate email */
         if (!isValidEmail(email.value)) {
             showFieldError(email, 'ERROR: Invalid email format');
             isValid = false;
         }
-
-        /* Validate message */
         if (!message.value.trim()) {
             showFieldError(message, 'ERROR: Message field cannot be empty');
             isValid = false;
         }
 
-        /* Show success if all valid */
         if (isValid) {
             const success = form.querySelector('.form-success');
             if (success) {
                 success.classList.add('form-success--visible');
-                success.textContent = '> Message sent successfully. Thank you!';
+                success.textContent = '> Message sent successfully. Thank you! NOTE: not actually connected';
             }
             form.reset();
         }
     });
 }
 
-/* Check if email format is valid */
+// basic email regex - just checks for something@something.something
 function isValidEmail(email) {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return pattern.test(email.trim());
 }
 
-/* Show error message below a field */
+// adds red border to field and shows error message below it
 function showFieldError(field, message) {
     field.classList.add('form-input--error');
     const errorEl = field.parentElement.querySelector('.form-error');
@@ -179,7 +286,7 @@ function showFieldError(field, message) {
     }
 }
 
-/* Clear all form errors */
+// wipes all error states so we start fresh each submit
 function clearFormErrors(form) {
     const errorEls = form.querySelectorAll('.form-error');
     errorEls.forEach(function(el) {
@@ -194,97 +301,88 @@ function clearFormErrors(form) {
     });
 
     const success = form.querySelector('.form-success');
-    if (success) {
-        success.classList.remove('form-success--visible');
-    }
+    if (success) success.classList.remove('form-success--visible');
 }
 
 
-/* ============================================================
-   BLOG SIGNUP FORM
-   Simple email validation and success message for the
-   blog subscription form.
-   ============================================================ */
+/* ---- BLOG SIGNUP ----
+   same idea as contact form but simpler - just one email field */
 function initSignupForm() {
     const form = document.getElementById('signup-form');
-    if (!form) return;
+    if (!form) return; // only on blog.html
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
         const emailInput = form.querySelector('#signup-email');
+        const errorEl = document.getElementById('signup-error');
         const success = document.getElementById('signup-success');
+
+        // clear previous state
+        emailInput.classList.remove('form-input--error');
+        if (errorEl) { errorEl.classList.remove('form-error--visible'); errorEl.textContent = ''; }
+        if (success) { success.classList.remove('form-success--visible'); }
 
         if (!emailInput || !isValidEmail(emailInput.value)) {
             emailInput.classList.add('form-input--error');
+            if (errorEl) {
+                errorEl.textContent = 'ERROR: Invalid email format';
+                errorEl.classList.add('form-error--visible');
+            }
             return;
         }
 
-        emailInput.classList.remove('form-input--error');
-
-        /* Show success message */
         if (success) {
             success.classList.add('form-success--visible');
-            success.textContent = '> Subscribed! You\'ll receive updates at ' + emailInput.value.trim();
+            success.textContent = '> Subscribed! You\'ll receive updates at ' + emailInput.value.trim() + ' NOTE: not actually connected';
         }
-
         form.reset();
     });
 }
 
 
-/* ============================================================
-   SUBJECT TREE TOGGLE
-   Prevents the <a> links inside subject-tree summaries from
-   toggling the <details> element — only the chevron/summary
-   area outside the link triggers expand/contract.
-   ============================================================ */
+/* ---- SUBJECT TREE TOGGLE ----
+   on writing pages, folder summaries have <a> links inside them.
+   without this, clicking the link also toggles the folder open/closed
+   because the click bubbles up to <summary>. stopPropagation fixes it */
 function initSubjectTreeToggle() {
     const links = document.querySelectorAll('.subject-tree__folder > summary a');
     links.forEach(function(link) {
         link.addEventListener('click', function(event) {
-            /* Stop click from bubbling to summary and toggling details */
             event.stopPropagation();
         });
     });
 }
 
 
-/* ============================================================
-   PANE GLOW
-   Adds a subtle glow to the deepest container under the cursor.
-   Only one container glows at a time — nested blocks take
-   priority over their parent pane.
-   ============================================================ */
+/* ---- PANE GLOW ----
+   hover effect - adds a subtle glow to whatever container the mouse
+   is over. only one thing glows at a time, deepest element wins.
+   structural panes (header/sidebar/main) get accent1 glow,
+   nested blocks (cards/resume-blocks) get a softer accent2 glow */
 function initPaneGlow() {
-    /* Structural panes get accent1 glow, nested blocks get softer accent2 glow */
     const structuralSelector = '.site-header .pane, .site-sidebar .pane, .site-main .pane';
     const nestedSelector = '.card, .resume-block, .subject-tree__folder';
     const glowSelector = structuralSelector + ',' + nestedSelector;
 
-    let currentGlow = null;
+    let currentGlow = null; // tracks what's currently glowing
 
     document.addEventListener('mouseover', function(event) {
-        /* Find the deepest glowable container under the cursor */
-        const target = event.target.closest(glowSelector);
+        const target = event.target.closest(glowSelector); // find deepest match
+        if (target === currentGlow) return; // still on the same thing
 
-        if (target === currentGlow) return;
+        // remove old glow
+        if (currentGlow) currentGlow.classList.remove('pane-glow', 'pane-glow-nested');
 
-        /* Remove glow from previous element */
-        if (currentGlow) {
-            currentGlow.classList.remove('pane-glow', 'pane-glow-nested');
-        }
-
-        /* Apply appropriate glow class to new target */
+        // apply new glow (different class depending on structural vs nested)
         if (target) {
             const isStructural = target.matches(structuralSelector);
             target.classList.add(isStructural ? 'pane-glow' : 'pane-glow-nested');
         }
-
         currentGlow = target;
     });
 
-    /* Remove glow when cursor leaves the page */
+    // kill glow when mouse leaves the window entirely
     document.addEventListener('mouseleave', function() {
         if (currentGlow) {
             currentGlow.classList.remove('pane-glow', 'pane-glow-nested');
@@ -294,41 +392,23 @@ function initPaneGlow() {
 }
 
 
-/* ============================================================
-   CURSOR BLINK
-   Adds the blinking cursor character to elements with
-   the .cursor class. Pure visual enhancement.
-   ============================================================ */
-function initCursorBlink() {
-    const cursors = document.querySelectorAll('.cursor');
-    cursors.forEach(function(el) {
-        if (!el.textContent) {
-            el.textContent = '\u2588'; /* Full block character */
-        }
-    });
-}
-
-
-/* ============================================================
-   RESUME TREE CONNECTORS
-   Measures each tree item's content height and builds
-   actual ├ │ └ characters for the connector column.
-   Recalculates on resize since line wrapping changes.
-   ============================================================ */
+/* ---- RESUME TREE CONNECTORS ----
+   draws the ├ │ └ characters next to each bullet point on the resume.
+   has to measure actual content height because text wraps differently
+   at different widths, and the connector needs to span all lines.
+   recalculates on resize for this reason */
 function initResumeTree() {
     const trees = document.querySelectorAll('.resume-tree');
-    const roleTrees = document.querySelectorAll('.role-tree');
-    if (!trees.length && !roleTrees.length) return;
+    if (!trees.length) return; // only on resume.html
 
-    /* Build connector string for a list of items within a container */
     function buildTreeConnectors(items, connectorSel, contentSel) {
-        /* Reset all connectors to single char so they don't inflate height */
+        // first pass: reset to single char so height measurement is clean
         items.forEach(function(item) {
             const connector = item.querySelector(connectorSel);
             if (connector) connector.textContent = '\u251C ';
         });
 
-        /* Now measure content heights and build connector strings */
+        // second pass: measure content height, build connector string
         items.forEach(function(item, index) {
             const connector = item.querySelector(connectorSel);
             const content = item.querySelector(contentSel);
@@ -339,41 +419,32 @@ function initResumeTree() {
             const contentHeight = content.offsetHeight;
             const lines = Math.max(1, Math.round(contentHeight / lineHeight));
 
-            /* First line: ├ or └ */
+            // first line: ├ or └ depending on position
             const branch = isLast ? '\u2514 ' : '\u251C ';
-            /* Continuation lines: │ or space */
+            // continuation lines: │ keeps going, space means end
             const cont = isLast ? '  ' : '\u2502 ';
 
             let text = branch;
             for (let i = 1; i < lines; i++) {
                 text += '\n' + cont;
             }
-            /* Extra spacer line between items (non-last only) */
-            if (!isLast) {
-                text += '\n' + cont;
-            }
+            // spacer between items (not after the last one)
+            if (!isLast) text += '\n' + cont;
 
             connector.textContent = text;
         });
     }
 
     function buildAll() {
-        /* Build inner resume-tree connectors first (dot points) */
         trees.forEach(function(tree) {
             const items = Array.from(tree.querySelectorAll(':scope > .resume-tree__item'));
             buildTreeConnectors(items, '.resume-tree__connector', '.resume-tree__content');
-        });
-
-        /* Then build outer role-tree connectors (role nodes) */
-        roleTrees.forEach(function(tree) {
-            const nodes = Array.from(tree.querySelectorAll(':scope > .role-tree__node'));
-            buildTreeConnectors(nodes, '.role-tree__connector', '.role-tree__body');
         });
     }
 
     buildAll();
 
-    /* Rebuild on resize — text reflow changes line counts */
+    // debounced rebuild on resize (text reflow changes heights)
     let resizeTimer = null;
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);

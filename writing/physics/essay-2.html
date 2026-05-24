@@ -13,155 +13,46 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
     <div class="site-layout">
-
-        <!-- ============================================
-             PANE 0: HEADER
-             ============================================ -->
-        <header class="site-header">
-            <section class="pane" data-pane="0: Header">
-                <div class="header-content">
-                    <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">[=]</button>
-
-                    <nav class="breadcrumb" aria-label="Breadcrumb">
-                        <span class="breadcrumb__separator">/</span>
-                        <a href="../../index.html">Users</a>
-                        <span class="breadcrumb__separator">/</span>
-                        <a href="../../index.html">Ben_Bryant</a>
-                        <span class="breadcrumb__separator">/</span>
-                        <a href="../../writing.html">Writing</a>
-                        <span class="breadcrumb__separator">/</span>
-                        <a href="../physics.html">Physics</a>
-                        <span class="breadcrumb__separator">/</span>
-                        <span class="breadcrumb__current">Essay 2</span>
-                    </nav>
-
-                    <nav class="header-nav" aria-label="Quick links">
-                        <a href="../../contact.html" class="tui-btn tui-btn--t3">Contact</a>
-                        <a href="../../help.html" class="tui-btn tui-btn--t4">? Help</a>
-                    </nav>
-                </div>
-            </section>
-        </header>
-
-                <!-- ============================================
-             PANE 1: SIDEBAR
-             File tree with inline Nerd Font icons
-             ============================================ -->
-        <aside class="site-sidebar" id="sidebar">
-            <section class="pane" data-pane="1: Sidebar">
-                <nav class="file-tree" aria-label="Site navigation">
-                    <div class="file-tree__list">
-                        <details class="file-tree__folder" open>
-                            <summary><span class="nf-icon nf-icon--folder">󰉋</span> ~/Ben_Bryant</summary>
-                            <div class="file-tree__children">
-                                <a href="../../index.html" ><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> index.html (home)</a>
-                                <details class="file-tree__folder" open>
-                                    <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Projects</summary>
-                                    <div class="file-tree__children">
-                                        <a href="../../projects.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> projects.html</a>
-                                        <a href="../../projects/gena.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> gena.html</a>
-                                        <a href="../../projects/visulus.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> visulus.html</a>
-                                        <a href="../../projects/jarvis.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> jarvis.html</a>
-                                        <a href="../../projects/tdash.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> tdash.html</a>
-                                    </div>
-                                </details>
-                                <details class="file-tree__folder" open>
-                                    <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Personal Blog</summary>
-                                    <div class="file-tree__children">
-                                        <a href="../../blog.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> blog.html</a>
-                                        <a href="../../blog/europe-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #1 My Travels Through Europe So Far</a>
-                                        <a href="../../blog/europe-2.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #2 From Greece to Oxford</a>
-                                        <a href="../../blog/europe-3.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> #3 Lady Margaret Hall, Oxford</a>
-                                        <a href="../../blog/europe-4.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> #4 Last Two Weeks of Europe</a>
-                                    </div>
-                                </details>
-                                <details class="file-tree__folder" open>
-                                    <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Assignments &amp; Writing</summary>
-                                    <div class="file-tree__children">
-                                        <a href="../../writing.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> writing.html</a>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Economics</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../../writing/economics.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> economics.html</a>
-                                                <a href="../../writing/economics/essay-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> essay-1.html</a>
-                                                <a href="../../writing/economics/essay-2.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> essay-2.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Physics</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../../writing/physics.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> physics.html</a>
-                                                <a href="../../writing/physics/essay-1.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--file"></span> essay-1.html</a>
-                                                <a href="../../writing/physics/essay-2.html" class="file-tree__link--active"><span class="tree-char">└ </span><span class="nf-icon nf-icon--file"></span> essay-2.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> English</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../../writing/english.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> english.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">├ </span><span class="nf-icon nf-icon--folder">󰉋</span> Maths</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../../writing/maths.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> maths.html</a>
-                                            </div>
-                                        </details>
-                                        <details class="file-tree__folder">
-                                            <summary><span class="tree-char">└ </span><span class="nf-icon nf-icon--folder">󰉋</span> Geography</summary>
-                                            <div class="file-tree__children">
-                                                <a href="../../writing/geography.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> geography.html</a>
-                                            </div>
-                                        </details>
-                                    </div>
-                                </details>
-                                <a href="../../resume.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> resume.html</a>
-                                <a href="../../contact.html"><span class="tree-char">├ </span><span class="nf-icon nf-icon--html"></span> contact.html</a>
-                                <a href="../../help.html"><span class="tree-char">└ </span><span class="nf-icon nf-icon--html"></span> help.html</a>
-                            </div>
-                        </details>
-                    </div>
-                </nav>
-            </section>
-        </aside>
-
+        <!-- Header, sidebar, footer injected by initSharedComponents() -->
+        <header class="site-header"></header>
+        <aside class="site-sidebar" id="sidebar"></aside>
 
         <!-- ============================================
              PANE 2: MAIN CONTENT — Essay
              ============================================ -->
-        <main class="site-main">
+        <main class="site-main" data-label="2: Essay">
             <section class="pane pane--active" data-pane="2: Essay">
                 <div class="main-content">
 
-                    <a href="../physics.html">&lt; Back to Physics</a>
-
                     <article>
-                        <h1>Thermodynamics of Black Holes<span class="cursor">&#9608;</span></h1>
-                        <p class="article-date">March 2026</p>
+                        <div class="article-header">
+                            <h1>Thermodynamics of Black Holes<span class="cursor">&#9608;</span></h1>
+                            <div class="article-meta">
+                                <span>March 2026</span>
+                                <span>Physics</span>
+                            </div>
+                        </div>
 
-                        <p>Black holes, once considered mere mathematical curiosities of general relativity, have emerged as central objects in modern theoretical physics. The discovery that black holes possess thermodynamic properties — temperature, entropy, and the capacity to radiate — has profound implications for our understanding of quantum gravity and the nature of information. This essay surveys the key developments in black hole thermodynamics and their significance.</p>
+                        <div class="article-content">
+                            <p>Black holes, once considered mere mathematical curiosities of general relativity, have emerged as central objects in modern theoretical physics. The discovery that black holes possess thermodynamic properties — temperature, entropy, and the capacity to radiate — has profound implications for our understanding of quantum gravity and the nature of information. This essay surveys the key developments in black hole thermodynamics and their significance.</p>
 
-                        <p>The foundations were laid by Jacob Bekenstein in 1972, who proposed that black holes carry entropy proportional to the area of their event horizon. This was a radical suggestion: in classical general relativity, a black hole is characterised by only three parameters — mass, charge, and angular momentum — leaving no obvious microscopic degrees of freedom to account for entropy. Bekenstein's insight drew on the observation that the area of an event horizon never decreases in classical processes, mirroring the second law of thermodynamics.</p>
+                            <p>The foundations were laid by Jacob Bekenstein in 1972, who proposed that black holes carry entropy proportional to the area of their event horizon. This was a radical suggestion: in classical general relativity, a black hole is characterised by only three parameters — mass, charge, and angular momentum — leaving no obvious microscopic degrees of freedom to account for entropy. Bekenstein's insight drew on the observation that the area of an event horizon never decreases in classical processes, mirroring the second law of thermodynamics.</p>
 
-                        <p>Stephen Hawking's 1974 calculation transformed this analogy into a precise physical statement. By applying quantum field theory in curved spacetime, Hawking demonstrated that black holes emit thermal radiation at a temperature inversely proportional to their mass. This Hawking radiation implies that black holes are not truly black but slowly evaporate, losing mass and eventually disappearing entirely. The thermal spectrum of this radiation raised the information paradox: if a black hole forms from a pure quantum state and evaporates into featureless thermal radiation, unitarity — a cornerstone of quantum mechanics — appears to be violated.</p>
+                            <p>Stephen Hawking's 1974 calculation transformed this analogy into a precise physical statement. By applying quantum field theory in curved spacetime, Hawking demonstrated that black holes emit thermal radiation at a temperature inversely proportional to their mass. This Hawking radiation implies that black holes are not truly black but slowly evaporate, losing mass and eventually disappearing entirely. The thermal spectrum of this radiation raised the information paradox: if a black hole forms from a pure quantum state and evaporates into featureless thermal radiation, unitarity — a cornerstone of quantum mechanics — appears to be violated.</p>
 
-                        <p>The information paradox has driven much of the theoretical physics research of the past five decades. Proposed resolutions range from remnants that store information indefinitely, to modifications of quantum mechanics, to the holographic principle articulated by 't Hooft and Susskind, which suggests that all information within a volume of space can be encoded on its boundary. Recent developments involving the Page curve, quantum extremal surfaces, and the island formula have provided compelling evidence that information is indeed preserved, though the precise mechanism remains an active area of investigation at the intersection of quantum mechanics and general relativity.</p>
+                            <p>The information paradox has driven much of the theoretical physics research of the past five decades. Proposed resolutions range from remnants that store information indefinitely, to modifications of quantum mechanics, to the holographic principle articulated by 't Hooft and Susskind, which suggests that all information within a volume of space can be encoded on its boundary. Recent developments involving the Page curve, quantum extremal surfaces, and the island formula have provided compelling evidence that information is indeed preserved, though the precise mechanism remains an active area of investigation at the intersection of quantum mechanics and general relativity.</p>
+                        </div>
                     </article>
 
                 </div>
             </section>
         </main>
-
-        <!-- ============================================
-             FOOTER
-             ============================================ -->
-        <footer class="site-footer">
-            <p>&copy; Ben Bryant 2026</p>
-        </footer>
+        <footer class="site-footer"></footer>
 
     </div>
 
     <!-- External JavaScript -->
+    <script>window.PAGE = { base: '../../', title: 'Essay 2', breadcrumb: [['Writing', 'writing.html'], ['Physics', 'writing/physics.html']] };</script>
     <script src="../../js/script.js?v=4"></script>
 </body>
 </html>
