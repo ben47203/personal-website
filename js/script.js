@@ -88,8 +88,9 @@ function buildHeader(config) {
 
     return '<section class="pane" data-pane="0: Header">' +
         '<div class="header-content">' +
-            '<button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">[=]</button>' +
-            '<nav class="breadcrumb" aria-label="Breadcrumb">' + crumbs + '</nav>' +
+            '<nav class="breadcrumb" aria-label="Breadcrumb">' + 
+                '<button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false">[=]</button>' +
+                crumbs + '</nav>' +
             '<nav class="header-nav" aria-label="Quick links">' +
                 '<a href="' + base + 'contact.html" class="tui-btn tui-btn--t3">Contact</a>' +
                 '<a href="' + base + 'help.html" class="tui-btn tui-btn--t4">? Help</a>' +
@@ -129,22 +130,30 @@ function buildSidebar(base) {
                     fl(b, 'writing.html', 'html', 'writing.html', '\u251C') +
                     folder(b, '\u251C', 'Economics',
                         fl(b, 'writing/economics.html', 'html', 'economics.html', '\u251C') +
-                        fl(b, 'writing/economics/essay-1.html', 'file', 'essay-1.html', '\u251C') +
-                        fl(b, 'writing/economics/essay-2.html', 'file', 'essay-2.html', '\u2514'),
+                        fl(b, 'writing/economics/essay-1.html', 'file', 'Australian economic stimulus', '\u251C') +
+                        fl(b, 'writing/economics/essay-2.html', 'file', 'Monetary policy', '\u2514'),
                     false) +
                     folder(b, '\u251C', 'Physics',
                         fl(b, 'writing/physics.html', 'html', 'physics.html', '\u251C') +
-                        fl(b, 'writing/physics/essay-1.html', 'file', 'essay-1.html', '\u251C') +
-                        fl(b, 'writing/physics/essay-2.html', 'file', 'essay-2.html', '\u2514'),
+                        fl(b, 'writing/physics/essay-1.html', 'file', 'Wave-particle duality', '\u251C') +
+                        fl(b, 'writing/physics/essay-2.html', 'file', 'Black hole thermodynamics', '\u2514'),
                     false) +
                     folder(b, '\u251C', 'English',
-                        fl(b, 'writing/english.html', 'html', 'english.html', '\u2514'),
+                        fl(b, 'writing/english.html', 'html', 'english.html', '\u251C') +
+                        fl(b, 'writing/english/essay-1.html', 'file', 'Postcolonial narratives', '\u251C') +
+                        fl(b, 'writing/english/essay-2.html', 'file', 'Rhetoric and persuasion', '\u251C') +
+                        fl(b, 'writing/english/essay-3.html', 'file', 'Close reading: Ishiguro', '\u2514'),
                     false) +
                     folder(b, '\u251C', 'Maths',
-                        fl(b, 'writing/maths.html', 'html', 'maths.html', '\u2514'),
+                        fl(b, 'writing/maths.html', 'html', 'maths.html', '\u251C') +
+                        fl(b, 'writing/maths/essay-1.html', 'file', 'Fourier transforms', '\u251C') +
+                        fl(b, 'writing/maths/essay-2.html', 'file', 'Linear algebra', '\u2514'),
                     false) +
                     folder(b, '\u2514', 'Geography',
-                        fl(b, 'writing/geography.html', 'html', 'geography.html', '\u2514'),
+                        fl(b, 'writing/geography.html', 'html', 'geography.html', '\u251C') +
+                        fl(b, 'writing/geography/essay-1.html', 'file', 'Urbanisation in SEQ', '\u251C') +
+                        fl(b, 'writing/geography/essay-2.html', 'file', 'Climate change and the reef', '\u251C') +
+                        fl(b, 'writing/geography/essay-3.html', 'file', 'Geopolitics of water', '\u2514'),
                     false),
                 true) +
 

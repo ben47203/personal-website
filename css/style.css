@@ -234,12 +234,6 @@ good for each of the main panes
 .site-sidebar::before { content: '1: Sidebar'; }
 .site-main::before { content: attr(data-label); }
 
-/* (border-color and background already set by .pane base rule) */
-
-/* Active pane — same border as header/sidebar (accent1) */
-.pane--active {
-    border-color: var(--accent1);
-}
 
 
 /* ============================================================
@@ -350,27 +344,10 @@ good for each of the main panes
     align-items: center;
 }
 
-/* Header nav buttons — Contact (#3) and Help (#4) */
-.header-nav .tui-btn--t3 {
-    background-color: var(--accent3);
-    border-color: var(--accent3);
-    font-size: 0.9em;
-}
-
-.header-nav .tui-btn--t3:hover {
-    background-color: var(--accent2);
-    border-color: var(--accent2);
-}
-
+/* Header nav buttons are slightly smaller */
+.header-nav .tui-btn--t3,
 .header-nav .tui-btn--t4 {
-    background-color: var(--accent4);
-    border-color: var(--accent4);
     font-size: 0.9em;
-}
-
-.header-nav .tui-btn--t4:hover {
-    background-color: var(--accent3);
-    border-color: var(--accent3);
 }
 
 /* Mobile menu toggle button — hidden on desktop */
@@ -541,11 +518,6 @@ good for each of the main panes
 }
 
 /* Welcome intro — aside floats right with photo + github stacked */
-.welcome-intro {
-    overflow: hidden;
-    margin-bottom: 1rem;
-}
-
 /* Floated container holding profile photo on top, github below */
 .welcome-aside {
     float: right;
@@ -653,17 +625,6 @@ good for each of the main panes
 }
 
 /* Placeholder for images — coloured block */
-.card__image-placeholder {
-    width: 100%;
-    height: 200px;
-    background: var(--background2);
-    border-bottom: 1px solid var(--accent3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--foreground3);
-    font-size: 0.85em;
-}
 
 .card__body {
     padding: var(--pane-padding);
@@ -700,6 +661,12 @@ good for each of the main panes
     gap: 0.5ch;
     flex-wrap: wrap;
     margin-top: 0.5em;
+}
+
+/* - this is just for resume because spacing was weird. */
+.content-section > .card__tags {
+    margin-top: -0.50em;
+    margin-bottom: 1em;
 }
 
 .tag {
@@ -788,6 +755,17 @@ good for each of the main panes
 .tui-btn--t3:hover {
     background-color: var(--accent2);
     border-color: var(--accent2);
+}
+
+/* Tier 4 variant — accent4 (sand) background, hover escalates to accent3 */
+.tui-btn--t4 {
+    background-color: var(--accent4);
+    border-color: var(--accent4);
+}
+
+.tui-btn--t4:hover {
+    background-color: var(--accent3);
+    border-color: var(--accent3);
 }
 
 /* Button grid for groups of link buttons */
@@ -1108,6 +1086,7 @@ good for each of the main panes
 
 .form-success--visible {
     display: block;
+    margin-top: 1em;
 }
 
 
@@ -1143,23 +1122,6 @@ good for each of the main panes
     border-width: 0;
 }
 
-/* Text colour utilities */
-.text-accent { color: var(--accent1); }
-.text-muted { color: var(--foreground3); }
-.text-error { color: var(--accent3); }
-
-/* Flex utilities */
-.flex { display: flex; }
-.flex-between {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 /* Article content styling */
 .article-header {
@@ -1323,6 +1285,7 @@ good for each of the main panes
     /* Show hamburger button on mobile */
     .mobile-menu-toggle {
         display: block;
+        margin-right: 1em;
     }
 
     /* Welcome: stack vertically on mobile */
@@ -1348,11 +1311,7 @@ good for each of the main panes
         grid-template-columns: 1fr;
     }
 
-    /* Accordion & subject tree: single column */
-    .accordion-grid {
-        grid-template-columns: 1fr;
-    }
-
+    /* Subject tree: single column on mobile */
     .subject-tree {
         grid-template-columns: 1fr;
     }

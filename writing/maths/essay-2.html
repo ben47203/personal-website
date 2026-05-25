@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications of Linear Algebra — Ben Bryant</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <!-- Mobile overlay backdrop for sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <div class="site-layout">
+        <!-- Header, sidebar, footer injected by initSharedComponents() -->
+        <header class="site-header"></header>
+        <aside class="site-sidebar" id="sidebar"></aside>
+
+        <main class="site-main" data-label="2: Essay">
+            <section class="pane pane--active" data-pane="2: Essay">
+                <div class="main-content">
+
+                    <article>
+                        <div class="article-header">
+                            <h1>Applications of Linear Algebra<span class="cursor">&#9608;</span></h1>
+                            <div class="article-meta">
+                                <span>November 2025</span>
+                                <span>Maths</span>
+                            </div>
+                        </div>
+
+                        <div class="article-content">
+                            <p>Linear algebra is often described as the mathematics of the modern world. While calculus dominated the physical sciences of the 18th and 19th centuries, the computational demands of the 21st century — machine learning, computer graphics, quantum computing, network analysis — are fundamentally linear algebraic in character. This essay surveys how eigenvalues, vector spaces, and matrix decompositions power contemporary technology.</p>
+
+                            <p>In machine learning, the connection is direct: neural networks are compositions of linear transformations (matrix multiplications) with pointwise nonlinearities. Training these networks via gradient descent requires computing derivatives of matrix operations, and the efficiency of modern deep learning frameworks rests on optimised linear algebra libraries (BLAS, cuBLAS) that exploit GPU parallelism for matrix operations.</p>
+
+                            <p>Computer graphics provides perhaps the most visual application. Every rotation, scaling, projection, and perspective transformation applied to 3D objects is represented as matrix multiplication. The rendering pipeline that converts a 3D scene into a 2D image on screen is a sequence of linear transformations, each encoded as a 4x4 matrix. Real-time graphics are possible precisely because matrix multiplication is fast and parallelisable.</p>
+
+                            <p>The Singular Value Decomposition illustrates how a single linear algebraic tool can serve radically different purposes. In data science, SVD underpins Principal Component Analysis for dimensionality reduction. In recommendation systems, it factorises user-item matrices to predict preferences. In numerical analysis, it provides the most stable method for solving least-squares problems. This versatility reflects the fundamental nature of linear structure — wherever data can be arranged in matrices, linear algebra provides the natural toolkit for its analysis.</p>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+        </main>
+        <footer class="site-footer"></footer>
+
+    </div>
+    <script>window.PAGE = { base: '../../', title: 'Linear algebra', breadcrumb: [['Writing', 'writing.html'], ['Maths', 'writing/maths.html']] };</script>
+    <script src="../../js/script.js"></script>
+</body>
+</html>

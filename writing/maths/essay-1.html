@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploring Fourier Transforms — Ben Bryant</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <!-- Mobile overlay backdrop for sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <div class="site-layout">
+        <!-- Header, sidebar, footer injected by initSharedComponents() -->
+        <header class="site-header"></header>
+        <aside class="site-sidebar" id="sidebar"></aside>
+
+        <main class="site-main" data-label="2: Essay">
+            <section class="pane pane--active" data-pane="2: Essay">
+                <div class="main-content">
+
+                    <article>
+                        <div class="article-header">
+                            <h1>Exploring Fourier Transforms<span class="cursor">&#9608;</span></h1>
+                            <div class="article-meta">
+                                <span>September 2025</span>
+                                <span>Maths</span>
+                            </div>
+                        </div>
+
+                        <div class="article-content">
+                            <p>The Fourier transform is one of mathematics' most powerful tools, converting signals between time and frequency domains. What began as Joseph Fourier's controversial claim in 1807 — that any periodic function could be decomposed into a sum of sines and cosines — has become foundational to signal processing, quantum mechanics, medical imaging, and data compression.</p>
+
+                            <p>The intuition behind the transform is elegant: any complex signal, no matter how irregular, can be understood as a superposition of simple oscillations at different frequencies. The transform reveals these constituent frequencies and their relative amplitudes. A musical chord becomes its individual notes; an image becomes its spatial frequency components; a time series becomes its cyclical patterns.</p>
+
+                            <p>The Discrete Fourier Transform and its computational implementation, the Fast Fourier Transform, brought these ideas from pure mathematics into practical engineering. The FFT algorithm, published by Cooley and Tukey in 1965, reduced the computational complexity from O(n²) to O(n log n), making real-time spectral analysis feasible. This single algorithmic advance underpins MP3 compression, JPEG encoding, MRI reconstruction, and countless other technologies.</p>
+
+                            <p>Understanding the Fourier transform also illuminates deep connections across mathematics. The uncertainty principle — that a signal cannot be simultaneously localised in both time and frequency — appears not only in quantum mechanics but as a fundamental property of the transform itself. This mathematical universality suggests that Fourier analysis captures something essential about the structure of information, independent of any particular physical application.</p>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+        </main>
+        <footer class="site-footer"></footer>
+
+    </div>
+    <script>window.PAGE = { base: '../../', title: 'Fourier transforms', breadcrumb: [['Writing', 'writing.html'], ['Maths', 'writing/maths.html']] };</script>
+    <script src="../../js/script.js"></script>
+</body>
+</html>

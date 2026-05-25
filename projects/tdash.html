@@ -1,12 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Meta and title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tdash - Ben Bryant</title>
-    <!-- External stylesheet — single CSS file for entire site -->
-    <link rel="stylesheet" href="../css/style.css?v=9">
+    <title>Tdash — Ben Bryant</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <!-- Mobile overlay backdrop for sidebar -->
@@ -27,6 +25,8 @@
                     <h1>TDASH<span class="cursor">&#9608;</span></h1>
 
                     <p>Tdash is a terminal dashboard that runs inside tmux, providing live system monitoring without ever leaving the terminal. It displays real-time CPU, memory, and network utilisation using colour-coded block graphs with historical data, alongside ASCII-art visualisations of each tmux window's pane layout.</p>
+
+                    <p>The small monitor models represent each tmux window. Uniquely, the geometry of the models such as vertical and horizontal partitions represent the layout of the panes within each window. Further, the models actually resize to reflect the relative widths and heights of the actual panes.</p>
 
                     <p>A unique feature is Claude Code session detection — the dashboard identifies which tmux panes are running Claude Code and shows their current state (idle, working, or waiting for approval). It also tracks API token usage per session and weekly totals, parsed from Claude's JSONL log files.</p>
 
@@ -54,9 +54,7 @@
         <footer class="site-footer"></footer>
 
     </div>
-
-    <!-- External JavaScript -->
     <script>window.PAGE = { base: '../', title: 'Tdash', breadcrumb: [['Projects', 'projects.html']] };</script>
-    <script src="../js/script.js?v=4"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>
